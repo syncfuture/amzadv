@@ -51,6 +51,7 @@ func (x *APIClient) ExchangeToken(authCode string) (r *oauth2.Token, err error) 
 	return
 }
 
+// Examaple, Todo: rename it.
 func (x *APIClient) XXXXXXApi() (err error) {
 	ts, err := x.getTokenSource()
 	if err != nil {
