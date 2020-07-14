@@ -2,6 +2,7 @@ package amzadv
 
 import (
 	"encoding/json"
+	"time"
 
 	"github.com/go-redis/redis/v7"
 	"github.com/syncfuture/go/sredis"
@@ -41,8 +42,12 @@ func (x *TokenStore) GetToken(args ...interface{}) (r *oauth2.Token, err error) 
 		return
 	}
 
+	t, err := time.Parse(time.RFC3339, dto.Expiry)
+	u.LogError(err)
+
 	r.AccessToken = dto.AccessToken
 	r.RefreshToken = dto.RefreshToken
+	r.Expiry = t
 	return
 }
 
@@ -50,6 +55,7 @@ func (x *TokenStore) SaveToken(token *oauth2.Token, args ...interface{}) (err er
 	in := &TokenStoreDTO{
 		AccessToken:  token.AccessToken,
 		RefreshToken: token.RefreshToken,
+		Expiry:       token.Expiry.Format(time.RFC3339),
 	}
 
 	jsonBytes, err := json.Marshal(in)
