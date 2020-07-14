@@ -6,7 +6,6 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 	"strings"
@@ -157,13 +156,6 @@ func (x *APIClient) GetReport(reportID string) (r []byte, err error) {
 		}
 
 		r = bytes
-	} else {
-		// ToDo.....
-		bytes, err := ioutil.ReadAll(resp.Body)
-		if u.LogError(err) {
-			return r, err
-		}
-		fmt.Println(string(bytes))
 	}
 
 	return
