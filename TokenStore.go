@@ -1,0 +1,62 @@
+package amzadv
+
+import (
+	"encoding/json"
+
+	"github.com/go-redis/redis/v7"
+	"github.com/syncfuture/go/sredis"
+
+	"github.com/syncfuture/go/soauth2"
+	"github.com/syncfuture/go/u"
+	"golang.org/x/oauth2"
+)
+
+const (
+	_key = "amzadv"
+)
+
+type TokenStore struct {
+	Client     redis.Cmdable
+	MerchantID string
+}
+
+func NewTokenStore(config *sredis.RedisConfig, merchnatID string) soauth2.ITokenStore {
+	r := new(TokenStore)
+	r.Client = sredis.NewClient(config)
+	r.MerchantID = merchnatID
+	return r
+}
+
+func (x *TokenStore) GetToken(args ...interface{}) (r *oauth2.Token, err error) {
+	r = new(oauth2.Token)
+
+	jsonStr, err := x.Client.HGet(_key, x.MerchantID).Result()
+	if u.LogError(err) {
+		return
+	}
+
+	dto := new(TokenStoreDTO)
+	err = json.Unmarshal([]byte(jsonStr), &dto)
+	if u.LogError(err) {
+		return
+	}
+
+	r.AccessToken = dto.AccessToken
+	r.RefreshToken = dto.RefreshToken
+	return
+}
+
+func (x *TokenStore) SaveToken(token *oauth2.Token, args ...interface{}) (err error) {
+	in := &TokenStoreDTO{
+		AccessToken:  token.AccessToken,
+		RefreshToken: token.RefreshToken,
+	}
+
+	jsonBytes, err := json.Marshal(in)
+	if u.LogError(err) {
+		return err
+	}
+
+	x.Client.HSet(_key, x.MerchantID, string(jsonBytes))
+	return nil
+}

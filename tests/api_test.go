@@ -10,9 +10,6 @@ import (
 )
 
 func TestSponseredProducts(t *testing.T) {
-	_apiClient.AdvURL = "https://advertising-api.amazon.com"
-	_apiClient.ProfileID = Profiles["lf"]
-
 	q := new(amzadv.SponseredReportsQuery)
 	q.ReportDate = "20200630"
 	q.Metrics = "sku,cost"
@@ -25,7 +22,7 @@ func TestSponseredProducts(t *testing.T) {
 	t.Log(r.ReportID)
 
 	if r.ReportID != "" {
-		time.Sleep(2 * time.Second)
+		time.Sleep(3 * time.Second)
 
 		// get report
 		rs, err := _apiClient.GetReport(r.ReportID)
@@ -40,9 +37,6 @@ func TestSponseredProducts(t *testing.T) {
 }
 
 func TestSponseredBrand(t *testing.T) {
-	_apiClient.AdvURL = "https://advertising-api.amazon.com"
-	_apiClient.ProfileID = Profiles["lf"]
-
 	q := new(amzadv.SponseredReportsQuery)
 	q.ReportDate = "20200630"
 	q.Metrics = "cost"

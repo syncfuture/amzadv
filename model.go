@@ -1,6 +1,12 @@
 package amzadv
 
+type TokenStoreDTO struct {
+	AccessToken  string
+	RefreshToken string
+}
+
 type SponseredReportsQuery struct {
+	// MerchantID string
 	RequestURL string
 	ProfileID  string
 	ReportDate string
