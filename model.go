@@ -23,5 +23,7 @@ type SponseredBrandReportDTO struct {
 }
 
 type ReportResponse struct {
-	ReportID string `json:"reportId"`
+	ReportID   string `json:"reportId"`
+	RecordType string `json:"recordType"`
+	Status     string `json:"status"`
 }
