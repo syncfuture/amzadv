@@ -30,6 +30,7 @@ type ReportResponse struct {
 
 type ProfileDTO struct {
 	ProfileID   int64          `json:"profileId"`
+	CountryCode string         `json:"countryCode"`
 	AccountInfo AccountInfoDTO `json:"accountInfo"`
 }
 
