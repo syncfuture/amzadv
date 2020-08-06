@@ -13,25 +13,23 @@ import (
 )
 
 const (
-	_key = "amzadv"
+	_key = "amzadv:CONFIGS"
 )
 
 type TokenStore struct {
-	Client     redis.Cmdable
-	MerchantID string
+	Client redis.Cmdable
 }
 
-func NewTokenStore(config *sredis.RedisConfig, merchnatID string) soauth2.ITokenStore {
+func NewTokenStore(config *sredis.RedisConfig) soauth2.ITokenStore {
 	r := new(TokenStore)
 	r.Client = sredis.NewClient(config)
-	r.MerchantID = merchnatID
 	return r
 }
 
 func (x *TokenStore) GetToken(args ...interface{}) (r *oauth2.Token, err error) {
 	r = new(oauth2.Token)
 
-	jsonStr, err := x.Client.HGet(_key, x.MerchantID).Result()
+	jsonStr, err := x.Client.HGet(_key, "token").Result()
 	if u.LogError(err) {
 		return
 	}
@@ -63,6 +61,6 @@ func (x *TokenStore) SaveToken(token *oauth2.Token, args ...interface{}) (err er
 		return err
 	}
 
-	x.Client.HSet(_key, x.MerchantID, string(jsonBytes))
+	x.Client.HSet(_key, "token", string(jsonBytes))
 	return nil
 }

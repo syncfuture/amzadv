@@ -64,6 +64,35 @@ func (x *APIClient) ExchangeToken(authCode string) (r *oauth2.Token, err error) 
 
 // #endregion
 
+func (x *APIClient) GetProfiles() (r []*ProfileDTO, err error) {
+	r = make([]*ProfileDTO, 0)
+
+	ts, err := x.getTokenSource()
+	if err != nil {
+		return
+	}
+
+	url := x.AdvURL + "/v2/profiles"
+	client := oauth2.NewClient(oauth2.NoContext, ts)
+	resp, err := x.request("GET", client, url, nil)
+	if resp.StatusCode != 200 || u.LogError(err) {
+		return
+	}
+	defer resp.Body.Close()
+
+	bytes, err := ioutil.ReadAll(resp.Body)
+	if u.LogError(err) {
+		return
+	}
+
+	err = json.Unmarshal(bytes, &r)
+	if u.LogError(err) {
+		return
+	}
+
+	return
+}
+
 // #region Reports
 
 func (x *APIClient) RequestSponseredReports(query *SponseredReportsQuery) (r *ReportResponse, err error) {
@@ -177,8 +206,10 @@ func (x *APIClient) request(action string, client *http.Client, url string, body
 	// headers
 	contentType := "application/json"
 	req.Header.Set("Content-Type", contentType)
-	req.Header.Set("Amazon-Advertising-API-Scope", x.ProfileID)
 	req.Header.Set("Amazon-Advertising-API-ClientId", x.OAuth2Config.ClientID)
+	if x.ProfileID != "" {
+		req.Header.Set("Amazon-Advertising-API-Scope", x.ProfileID)
+	}
 	if strings.ToUpper(action) == "GET" {
 		req.Header.Set("Accept-Encoding", "gzip")
 	}

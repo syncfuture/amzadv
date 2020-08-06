@@ -44,9 +44,8 @@ func init() {
 	var redisConfig *sredis.RedisConfig
 	configProvider := config.NewJsonConfigProvider()
 	configProvider.GetStruct("Redis", &redisConfig)
-	tokenStore := amzadv.NewTokenStore(redisConfig, "lf")
+	tokenStore := amzadv.NewTokenStore(redisConfig)
 
 	_apiClient = amzadv.NewAPIClient(c, tokenStore)
 	_apiClient.AdvURL = AdvURL
-	_apiClient.ProfileID = Profiles["lf"]
 }

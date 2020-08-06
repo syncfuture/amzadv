@@ -27,3 +27,12 @@ type ReportResponse struct {
 	RecordType string `json:"recordType"`
 	Status     string `json:"status"`
 }
+
+type ProfileDTO struct {
+	ProfileID   int64          `json:"profileId"`
+	AccountInfo AccountInfoDTO `json:"accountInfo"`
+}
+
+type AccountInfoDTO struct {
+	ID string `json:"id"`
+}

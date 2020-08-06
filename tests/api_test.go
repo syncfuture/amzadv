@@ -62,3 +62,10 @@ func TestSponseredBrand(t *testing.T) {
 		t.Logf("%+v", v)
 	}
 }
+
+func TestGetProfiles(t *testing.T) {
+	r, err := _apiClient.GetProfiles()
+	assert.NoError(t, err)
+	assert.NotNil(t, r)
+	t.Log(r)
+}
