@@ -139,8 +139,8 @@ func (x *APIClient) RequestSponseredReports(query *SponseredReportsQuery) (r *Re
 func (x *APIClient) GetReport(reportID string) (r []byte, err error) {
 	r = make([]byte, 0)
 
-	if x.AdvURL == "" || x.ProfileID == "" {
-		err = errors.New("Missing AdvURL or ProfileID")
+	if x.AdvURL == "" {
+		err = errors.New("Missing AdvURL")
 		return
 	}
 
