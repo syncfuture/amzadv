@@ -48,4 +48,5 @@ func init() {
 
 	_apiClient = amzadv.NewAPIClient(c, tokenStore)
 	_apiClient.AdvURL = AdvURL
+	_apiClient.ProfileID = "2418655185698010"
 }

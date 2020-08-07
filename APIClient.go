@@ -139,8 +139,8 @@ func (x *APIClient) RequestSponseredReports(query *SponseredReportsQuery) (r *Re
 func (x *APIClient) GetReport(reportID string) (r []byte, err error) {
 	r = make([]byte, 0)
 
-	if x.AdvURL == "" {
-		err = errors.New("Missing AdvURL")
+	if x.AdvURL == "" || x.ProfileID == "" {
+		err = errors.New("Missing AdvURL or ProfileID")
 		return
 	}
 
@@ -207,9 +207,7 @@ func (x *APIClient) request(action string, client *http.Client, url string, body
 	contentType := "application/json"
 	req.Header.Set("Content-Type", contentType)
 	req.Header.Set("Amazon-Advertising-API-ClientId", x.OAuth2Config.ClientID)
-	if x.ProfileID != "" {
-		req.Header.Set("Amazon-Advertising-API-Scope", x.ProfileID)
-	}
+	req.Header.Set("Amazon-Advertising-API-Scope", x.ProfileID)
 	if strings.ToUpper(action) == "GET" {
 		req.Header.Set("Accept-Encoding", "gzip")
 	}
