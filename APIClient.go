@@ -10,19 +10,18 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/syncfuture/go/soauth2"
 	"github.com/syncfuture/go/u"
 	"golang.org/x/oauth2"
 )
 
 type APIClient struct {
 	OAuth2Config *oauth2.Config
-	TokenStore   soauth2.ITokenStore
+	TokenStore   ITokenStore
 	AdvURL       string
 	ProfileID    string
 }
 
-func NewAPIClient(config *oauth2.Config, tokenStore soauth2.ITokenStore) (r *APIClient) {
+func NewAPIClient(config *oauth2.Config, tokenStore ITokenStore) (r *APIClient) {
 	r = &APIClient{
 		OAuth2Config: config,
 		TokenStore:   tokenStore,

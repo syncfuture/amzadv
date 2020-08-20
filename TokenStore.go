@@ -7,7 +7,6 @@ import (
 	"github.com/go-redis/redis/v7"
 	"github.com/syncfuture/go/sredis"
 
-	"github.com/syncfuture/go/soauth2"
 	"github.com/syncfuture/go/u"
 	"golang.org/x/oauth2"
 )
@@ -16,11 +15,16 @@ const (
 	_key = "amzadv:CONFIGS"
 )
 
+type ITokenStore interface {
+	GetToken(args ...interface{}) (*oauth2.Token, error)
+	SaveToken(token *oauth2.Token, args ...interface{}) error
+}
+
 type TokenStore struct {
 	Client redis.Cmdable
 }
 
-func NewTokenStore(config *sredis.RedisConfig) soauth2.ITokenStore {
+func NewTokenStore(config *sredis.RedisConfig) ITokenStore {
 	r := new(TokenStore)
 	r.Client = sredis.NewClient(config)
 	return r
