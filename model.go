@@ -26,6 +26,7 @@ type ReportResponse struct {
 	ReportID   string `json:"reportId"`
 	RecordType string `json:"recordType"`
 	Status     string `json:"status"`
+	Details    string `json:"details"`
 }
 
 type ProfileDTO struct {
