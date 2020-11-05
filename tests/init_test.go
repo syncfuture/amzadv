@@ -17,7 +17,7 @@ const (
 
 var (
 	_apiClient *amzadv.APIClient
-	Profiles   = map[string]string{
+	_profiles  = map[string]string{
 		"lf": "2022686179132559",
 		"ff": "2418655185698010 ",
 	}
@@ -48,5 +48,5 @@ func init() {
 
 	_apiClient = amzadv.NewAPIClient(c, tokenStore)
 	_apiClient.AdvURL = AdvURL
-	_apiClient.ProfileID = "2418655185698010"
+	_apiClient.ProfileID = _profiles["lf"]
 }

@@ -11,7 +11,7 @@ import (
 
 func TestSponseredProducts(t *testing.T) {
 	q := new(amzadv.SponseredReportsQuery)
-	q.ReportDate = "20200630"
+	q.ReportDate = "20201026"
 	q.Metrics = "sku,cost"
 	q.RequestURL = "/v2/sp/productAds/report"
 
@@ -32,7 +32,7 @@ func TestSponseredProducts(t *testing.T) {
 		// decode
 		v := make([]*amzadv.SponseredProductsReportDTO, 0)
 		_ = json.Unmarshal(rs, &v)
-		t.Log(v)
+		t.Log(len(v))
 	}
 }
 

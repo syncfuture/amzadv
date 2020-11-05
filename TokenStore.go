@@ -21,11 +21,13 @@ type ITokenStore interface {
 }
 
 type TokenStore struct {
-	Client redis.Cmdable
+	Client     redis.Cmdable
+	MerchantID string
 }
 
-func NewTokenStore(config *sredis.RedisConfig) ITokenStore {
+func NewTokenStore(merchantId string, config *sredis.RedisConfig) ITokenStore {
 	r := new(TokenStore)
+	r.MerchantID = merchantId
 	r.Client = sredis.NewClient(config)
 	return r
 }
@@ -33,7 +35,7 @@ func NewTokenStore(config *sredis.RedisConfig) ITokenStore {
 func (x *TokenStore) GetToken(args ...interface{}) (r *oauth2.Token, err error) {
 	r = new(oauth2.Token)
 
-	jsonStr, err := x.Client.HGet(_key, "token").Result()
+	jsonStr, err := x.Client.HGet(_key, x.MerchantID).Result()
 	if u.LogError(err) {
 		return
 	}
@@ -65,6 +67,6 @@ func (x *TokenStore) SaveToken(token *oauth2.Token, args ...interface{}) (err er
 		return err
 	}
 
-	x.Client.HSet(_key, "token", string(jsonBytes))
+	x.Client.HSet(_key, x.MerchantID, string(jsonBytes))
 	return nil
 }
