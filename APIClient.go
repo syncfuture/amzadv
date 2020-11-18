@@ -2,7 +2,6 @@ package amzadv
 
 import (
 	"bytes"
-	"compress/gzip"
 	"context"
 	"encoding/json"
 	"errors"
@@ -63,6 +62,8 @@ func (x *APIClient) ExchangeToken(authCode string) (r *oauth2.Token, err error) 
 
 // #endregion
 
+// #region Profiles
+
 func (x *APIClient) GetProfiles() (r []*ProfileDTO, err error) {
 	r = make([]*ProfileDTO, 0)
 
@@ -92,50 +93,11 @@ func (x *APIClient) GetProfiles() (r []*ProfileDTO, err error) {
 	return
 }
 
-// #region Reports
+// #endregion
 
-func (x *APIClient) RequestSponseredReports(query *SponseredReportsQuery) (r *ReportResponse, err error) {
-	r = new(ReportResponse)
+// #region Utilities
 
-	if x.AdvURL == "" || x.ProfileID == "" || query.RequestURL == "" {
-		err = errors.New("Missing URL or ProfileID")
-		return
-	}
-
-	ts, err := x.getTokenSource()
-	if err != nil {
-		return
-	}
-
-	// body
-	values := map[string]string{
-		"reportDate": query.ReportDate,
-		"metrics":    query.Metrics,
-	}
-	body, _ := json.Marshal(values)
-	url := x.AdvURL + query.RequestURL
-
-	client := oauth2.NewClient(oauth2.NoContext, ts)
-	resp, err := x.request("POST", client, url, body)
-	if resp.StatusCode != 202 || u.LogError(err) {
-		return
-	}
-	defer resp.Body.Close()
-
-	bytes, err := ioutil.ReadAll(resp.Body)
-	if u.LogError(err) {
-		return
-	}
-
-	err = json.Unmarshal(bytes, &r)
-	if u.LogError(err) {
-		return
-	}
-
-	return
-}
-
-func (x *APIClient) GetReport(reportID string) (r []byte, err error) {
+func (x *APIClient) send(action string, uri string, body []byte) (r []byte, err error) {
 	r = make([]byte, 0)
 
 	if x.AdvURL == "" || x.ProfileID == "" {
@@ -150,48 +112,23 @@ func (x *APIClient) GetReport(reportID string) (r []byte, err error) {
 	}
 
 	// client
-	url := x.AdvURL + "/v2/reports/" + reportID + "/download"
+	url := x.AdvURL + uri
 	client := oauth2.NewClient(oauth2.NoContext, ts)
 	client.CheckRedirect = func(req *http.Request, via []*http.Request) error {
 		return http.ErrUseLastResponse
 	}
 
 	// send request
-	resp, err := x.request("GET", client, url, nil)
-	if resp.StatusCode != 307 || u.LogError(err) {
-		return
-	}
-
-	// get zip file
-	dwonloadURL := resp.Header.Get("Location")
-	resp, err = http.Get(dwonloadURL)
+	resp, err := x.request(action, client, url, body)
 	if resp.StatusCode != 200 || u.LogError(err) {
 		return
 	}
 	defer resp.Body.Close()
 
-	// unzip
-	if resp.Header.Get("Content-Length") != "" {
-		reader, err := gzip.NewReader(resp.Body)
-		if u.LogError(err) {
-			return r, err
-		}
-		defer reader.Close()
-
-		bytes, err := ioutil.ReadAll(reader)
-		if u.LogError(err) {
-			return r, err
-		}
-
-		r = bytes
-	}
-
+	r, err = ioutil.ReadAll(resp.Body)
+	u.LogError(err)
 	return
 }
-
-// #endregion
-
-// #region Utilities
 
 func (x *APIClient) request(action string, client *http.Client, url string, body []byte) (r *http.Response, err error) {
 	r = new(http.Response)

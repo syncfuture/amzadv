@@ -38,7 +38,7 @@ func TestSponseredProducts(t *testing.T) {
 
 func TestSponseredBrand(t *testing.T) {
 	q := new(amzadv.SponseredReportsQuery)
-	q.ReportDate = "20200630"
+	q.ReportDate = "20201001"
 	q.Metrics = "cost"
 	q.RequestURL = "/v2/hsa/campaigns/report"
 
