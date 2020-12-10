@@ -1,7 +1,9 @@
 package tests
 
 import (
-	"github.com/syncfuture/amzadv"
+	"github.com/syncfuture/amzadv/campaigns"
+	"github.com/syncfuture/amzadv/core"
+	"github.com/syncfuture/amzadv/reports"
 	"github.com/syncfuture/go/config"
 	"github.com/syncfuture/go/sredis"
 	"golang.org/x/oauth2"
@@ -16,8 +18,9 @@ const (
 )
 
 var (
-	_apiClient *amzadv.APIClient
-	_profiles  = map[string]string{
+	_reportsClient   *reports.ReportsAPI
+	_campaignsClient *campaigns.CampaignsAPI
+	_profiles        = map[string]string{
 		"lf": "2022686179132559",
 		"ff": "2418655185698010 ",
 	}
@@ -44,9 +47,13 @@ func init() {
 	var redisConfig *sredis.RedisConfig
 	configProvider := config.NewJsonConfigProvider()
 	configProvider.GetStruct("Redis", &redisConfig)
-	tokenStore := amzadv.NewTokenStore("lf", redisConfig)
+	tokenStore := core.NewTokenStore("lf", redisConfig)
 
-	_apiClient = amzadv.NewAPIClient(c, tokenStore)
-	_apiClient.AdvURL = AdvURL
-	_apiClient.ProfileID = _profiles["lf"]
+	_reportsClient = reports.NewReportsAPI(c, tokenStore)
+	_reportsClient.AdvURL = AdvURL
+	_reportsClient.ProfileID = _profiles["lf"]
+
+	_campaignsClient = campaigns.NewCampaignsAPI(c, tokenStore)
+	_campaignsClient.AdvURL = AdvURL
+	_campaignsClient.ProfileID = _profiles["lf"]
 }

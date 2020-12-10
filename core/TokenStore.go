@@ -1,4 +1,4 @@
-package amzadv
+package core
 
 import (
 	"encoding/json"

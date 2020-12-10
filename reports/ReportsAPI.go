@@ -1,4 +1,4 @@
-package amzadv
+package reports
 
 import (
 	"compress/gzip"
@@ -7,11 +7,23 @@ import (
 	"io/ioutil"
 	"net/http"
 
+	"github.com/syncfuture/amzadv/core"
 	"github.com/syncfuture/go/u"
 	"golang.org/x/oauth2"
 )
 
-func (x *APIClient) RequestSponseredReports(query *SponseredReportsQuery) (r *ReportResponse, err error) {
+type ReportsAPI struct {
+	core.APIClient
+}
+
+func NewReportsAPI(config *oauth2.Config, tokenStore core.ITokenStore) (r *ReportsAPI) {
+	r = new(ReportsAPI)
+	r.OAuth2Config = config
+	r.TokenStore = tokenStore
+	return r
+}
+
+func (x *ReportsAPI) RequestSponseredReports(query *SponseredReportsQuery) (r *ReportResponse, err error) {
 	r = new(ReportResponse)
 
 	if x.AdvURL == "" || x.ProfileID == "" || query.RequestURL == "" {
@@ -19,7 +31,7 @@ func (x *APIClient) RequestSponseredReports(query *SponseredReportsQuery) (r *Re
 		return
 	}
 
-	ts, err := x.getTokenSource()
+	ts, err := x.GetTokenSource()
 	if err != nil {
 		return
 	}
@@ -33,7 +45,7 @@ func (x *APIClient) RequestSponseredReports(query *SponseredReportsQuery) (r *Re
 	url := x.AdvURL + query.RequestURL
 
 	client := oauth2.NewClient(oauth2.NoContext, ts)
-	resp, err := x.request("POST", client, url, body)
+	resp, err := x.Request("POST", client, url, body)
 	if resp.StatusCode != 202 || u.LogError(err) {
 		return
 	}
@@ -52,7 +64,7 @@ func (x *APIClient) RequestSponseredReports(query *SponseredReportsQuery) (r *Re
 	return
 }
 
-func (x *APIClient) GetReport(reportID string) (r []byte, err error) {
+func (x *ReportsAPI) GetReport(reportID string) (r []byte, err error) {
 	r = make([]byte, 0)
 
 	if x.AdvURL == "" || x.ProfileID == "" {
@@ -61,7 +73,7 @@ func (x *APIClient) GetReport(reportID string) (r []byte, err error) {
 	}
 
 	// token
-	ts, err := x.getTokenSource()
+	ts, err := x.GetTokenSource()
 	if err != nil {
 		return
 	}
@@ -73,8 +85,8 @@ func (x *APIClient) GetReport(reportID string) (r []byte, err error) {
 		return http.ErrUseLastResponse
 	}
 
-	// send request
-	resp, err := x.request("GET", client, url, nil)
+	// send Request
+	resp, err := x.Request("GET", client, url, nil)
 	if resp.StatusCode != 307 || u.LogError(err) {
 		return
 	}

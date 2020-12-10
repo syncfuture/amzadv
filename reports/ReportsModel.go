@@ -1,11 +1,4 @@
-package amzadv
-
-type TokenStoreDTO struct {
-	// TokenType    string
-	AccessToken  string
-	RefreshToken string
-	Expiry       string
-}
+package reports
 
 type SponseredReportsQuery struct {
 	RequestURL string
@@ -27,15 +20,4 @@ type ReportResponse struct {
 	RecordType string `json:"recordType"`
 	Status     string `json:"status"`
 	Details    string `json:"details"`
-}
-
-type ProfileDTO struct {
-	ProfileID   int64          `json:"profileId"`
-	CountryCode string         `json:"countryCode"`
-	AccountInfo AccountInfoDTO `json:"accountInfo"`
-}
-
-type AccountInfoDTO struct {
-	ID            string `json:"id"`
-	MarketplaceID string `json:"marketplaceStringId"`
 }

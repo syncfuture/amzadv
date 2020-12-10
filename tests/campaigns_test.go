@@ -7,7 +7,7 @@ import (
 )
 
 func TestGetPortfolios(t *testing.T) {
-	r, err := _apiClient.GetPortfolios()
+	r, err := _campaignsClient.GetPortfolios()
 	assert.NoError(t, err)
 	assert.NotNil(t, r)
 	t.Logf("%v\n", r[0])
@@ -16,7 +16,7 @@ func TestGetPortfolios(t *testing.T) {
 func TestGetSPCampaigns(t *testing.T) {
 	id := "42441275323797"
 
-	r, err := _apiClient.GetSPCampaigns(id)
+	r, err := _campaignsClient.GetSPCampaigns(id)
 	assert.NoError(t, err)
 	assert.NotNil(t, r)
 	t.Logf("%v\n", r[0])

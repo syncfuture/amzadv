@@ -6,17 +6,17 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/syncfuture/amzadv"
+	"github.com/syncfuture/amzadv/reports"
 )
 
 func TestSponseredProducts(t *testing.T) {
-	q := new(amzadv.SponseredReportsQuery)
+	q := new(reports.SponseredReportsQuery)
 	q.ReportDate = "20201026"
 	q.Metrics = "sku,cost"
 	q.RequestURL = "/v2/sp/productAds/report"
 
 	// request report
-	r, err := _apiClient.RequestSponseredReports(q)
+	r, err := _reportsClient.RequestSponseredReports(q)
 	assert.NoError(t, err)
 	assert.NotNil(t, r.ReportID)
 	t.Log(r.ReportID)
@@ -25,25 +25,25 @@ func TestSponseredProducts(t *testing.T) {
 		time.Sleep(3 * time.Second)
 
 		// get report
-		rs, err := _apiClient.GetReport(r.ReportID)
+		rs, err := _reportsClient.GetReport(r.ReportID)
 		assert.NoError(t, err)
 		assert.NotNil(t, rs)
 
 		// decode
-		v := make([]*amzadv.SponseredProductsReportDTO, 0)
+		v := make([]*reports.SponseredProductsReportDTO, 0)
 		_ = json.Unmarshal(rs, &v)
 		t.Log(len(v))
 	}
 }
 
 func TestSponseredBrand(t *testing.T) {
-	q := new(amzadv.SponseredReportsQuery)
+	q := new(reports.SponseredReportsQuery)
 	q.ReportDate = "20201001"
 	q.Metrics = "cost"
 	q.RequestURL = "/v2/hsa/campaigns/report"
 
 	// request report
-	r, err := _apiClient.RequestSponseredReports(q)
+	r, err := _reportsClient.RequestSponseredReports(q)
 	assert.NoError(t, err)
 	assert.NotNil(t, r.ReportID)
 	t.Log(r.ReportID)
@@ -52,19 +52,19 @@ func TestSponseredBrand(t *testing.T) {
 		time.Sleep(2 * time.Second)
 
 		// get report
-		rs, err := _apiClient.GetReport(r.ReportID)
+		rs, err := _reportsClient.GetReport(r.ReportID)
 		assert.NoError(t, err)
 		assert.NotNil(t, rs)
 
 		// decode
-		v := make([]*amzadv.SponseredBrandReportDTO, 0)
+		v := make([]*reports.SponseredBrandReportDTO, 0)
 		_ = json.Unmarshal(rs, &v)
 		t.Logf("%+v", v)
 	}
 }
 
 func TestGetProfiles(t *testing.T) {
-	r, err := _apiClient.GetProfiles()
+	r, err := _reportsClient.GetProfiles()
 	assert.NoError(t, err)
 	assert.NotNil(t, r)
 	t.Log(r)
