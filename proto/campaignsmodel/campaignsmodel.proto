@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package campaigns;
+package campaignsmodel;
 
-option go_package = "github.com/syncfuture/amzadv/protoc/campaigns";
+option go_package = "github.com/syncfuture/amzadv/protoc/campaignsmodel";
 
 
 // ========================================================================================

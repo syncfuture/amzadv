@@ -4,9 +4,8 @@ import (
 	"encoding/json"
 	"errors"
 
-	"github.com/syncfuture/amzadv/proto/campaigns"
-
 	"github.com/syncfuture/amzadv/core"
+	"github.com/syncfuture/amzadv/proto/campaignsmodel"
 	"golang.org/x/oauth2"
 
 	"github.com/syncfuture/go/u"
@@ -40,8 +39,8 @@ func (x *CampaignsAPI) GetPortfolios() (r []*core.PortfolioDTO, err error) {
 	return
 }
 
-func (x *CampaignsAPI) GetSPCampaigns(portfolioID string) (r []*campaigns.SPCampaignDTO, err error) {
-	r = make([]*campaigns.SPCampaignDTO, 0)
+func (x *CampaignsAPI) GetSPCampaigns(portfolioID string) (r []*campaignsmodel.SPCampaignDTO, err error) {
+	r = make([]*campaignsmodel.SPCampaignDTO, 0)
 
 	if portfolioID == "" {
 		err = errors.New("Missing PortfolioID")
@@ -60,8 +59,8 @@ func (x *CampaignsAPI) GetSPCampaigns(portfolioID string) (r []*campaigns.SPCamp
 	return
 }
 
-func (x *CampaignsAPI) GetSBCampaigns(portfolioID string) (r []*campaigns.SBCampaignDTO, err error) {
-	r = make([]*campaigns.SBCampaignDTO, 0)
+func (x *CampaignsAPI) GetSBCampaigns(portfolioID string) (r []*campaignsmodel.SBCampaignDTO, err error) {
+	r = make([]*campaignsmodel.SBCampaignDTO, 0)
 
 	if portfolioID == "" {
 		err = errors.New("Missing PortfolioID")
@@ -80,8 +79,8 @@ func (x *CampaignsAPI) GetSBCampaigns(portfolioID string) (r []*campaigns.SBCamp
 	return
 }
 
-func (x *CampaignsAPI) GetSPTargets(adGroupId string) (r []*campaigns.TargetDTO, err error) {
-	r = make([]*campaigns.TargetDTO, 0)
+func (x *CampaignsAPI) GetSPTargets(adGroupId string) (r []*campaignsmodel.TargetDTO, err error) {
+	r = make([]*campaignsmodel.TargetDTO, 0)
 
 	if adGroupId == "" {
 		err = errors.New("Missing AdGroupId")
@@ -100,8 +99,8 @@ func (x *CampaignsAPI) GetSPTargets(adGroupId string) (r []*campaigns.TargetDTO,
 	return
 }
 
-func (x *CampaignsAPI) GetSPAdGroupsBid(adGroupId string) (r *campaigns.BidRecommendationsDTO, err error) {
-	r = new(campaigns.BidRecommendationsDTO)
+func (x *CampaignsAPI) GetSPAdGroupsBid(adGroupId string) (r *campaignsmodel.BidRecommendationsDTO, err error) {
+	r = new(campaignsmodel.BidRecommendationsDTO)
 
 	if adGroupId == "" {
 		err = errors.New("Missing AdGroupId")
@@ -120,8 +119,8 @@ func (x *CampaignsAPI) GetSPAdGroupsBid(adGroupId string) (r *campaigns.BidRecom
 	return
 }
 
-func (x *CampaignsAPI) GetSPTargetsBids(target *campaigns.TargetDTO) (r []*campaigns.BidRecommendationsDTO, err error) {
-	r = make([]*campaigns.BidRecommendationsDTO, 0)
+func (x *CampaignsAPI) GetSPTargetsBids(target *campaignsmodel.TargetDTO) (r []*campaignsmodel.BidRecommendationsDTO, err error) {
+	r = make([]*campaignsmodel.BidRecommendationsDTO, 0)
 
 	if target.AdGroupID == 0 {
 		err = errors.New("Missing AdGroupId")
@@ -145,27 +144,27 @@ func (x *CampaignsAPI) GetSPTargetsBids(target *campaigns.TargetDTO) (r []*campa
 
 // #region Create & Update
 
-func (x *CampaignsAPI) CreateSPCampaigns(entries []*campaigns.SPCampaignDTO) (r []byte, err error) {
+func (x *CampaignsAPI) CreateSPCampaigns(entries []*campaignsmodel.SPCampaignDTO) (r []byte, err error) {
 	body, _ := json.Marshal(entries)
 	return x.Send("POST", "/sb/campaigns", body)
 }
 
-func (x *CampaignsAPI) CreateSPAdGroups(entries []*campaigns.AdGroupDTO) (r []byte, err error) {
+func (x *CampaignsAPI) CreateSPAdGroups(entries []*campaignsmodel.AdGroupDTO) (r []byte, err error) {
 	body, _ := json.Marshal(entries)
 	return x.Send("POST", "/sb/adGroups", body)
 }
 
-func (x *CampaignsAPI) CreateSPKeywords(entries []*campaigns.KeywordDTO) (r []byte, err error) {
+func (x *CampaignsAPI) CreateSPKeywords(entries []*campaignsmodel.KeywordDTO) (r []byte, err error) {
 	body, _ := json.Marshal(entries)
 	return x.Send("POST", "/sb/keywords", body)
 }
 
-func (x *CampaignsAPI) CreateSPProductAds(entries []*campaigns.ProductAdDTO) (r []byte, err error) {
+func (x *CampaignsAPI) CreateSPProductAds(entries []*campaignsmodel.ProductAdDTO) (r []byte, err error) {
 	body, _ := json.Marshal(entries)
 	return x.Send("POST", "/sb/productAds", body)
 }
 
-func (x *CampaignsAPI) UpdateSPTargets(entries []*campaigns.TargetDTO) (r []byte, err error) {
+func (x *CampaignsAPI) UpdateSPTargets(entries []*campaignsmodel.TargetDTO) (r []byte, err error) {
 	body, _ := json.Marshal(entries)
 	return x.Send("PUT", "/sb/targets/", body)
 }
