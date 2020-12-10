@@ -16,6 +16,7 @@ type ProfileDTO struct {
 type AccountInfoDTO struct {
 	ID            string `json:"id"`
 	MarketplaceID string `json:"marketplaceStringId"`
+	Type          string `json:"type"`
 }
 
 type PortfolioDTO struct {

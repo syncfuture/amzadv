@@ -19,5 +19,6 @@ func TestGetSPCampaigns(t *testing.T) {
 	r, err := _campaignsClient.GetSPCampaigns(id)
 	assert.NoError(t, err)
 	assert.NotNil(t, r)
+	t.Logf("%d\n", len(r))
 	t.Logf("%v\n", r[0])
 }
