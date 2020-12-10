@@ -5,7 +5,7 @@ import (
 	"errors"
 
 	"github.com/syncfuture/amzadv/core"
-	"github.com/syncfuture/amzadv/proto/campaignsmodel"
+	"github.com/syncfuture/amzadv/protoc/campaignsmodel"
 	"golang.org/x/oauth2"
 
 	"github.com/syncfuture/go/u"
