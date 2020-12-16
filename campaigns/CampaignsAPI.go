@@ -83,8 +83,8 @@ func (x *CampaignsAPI) GetSBCampaigns(portfolioID string) (r []*campaignsmodel.S
 
 // #region Ad Groups
 
-func (x *CampaignsAPI) GetSPAdGroups(campaignId string) (r *campaignsmodel.AdGroupDTO, err error) {
-	r = new(campaignsmodel.AdGroupDTO)
+func (x *CampaignsAPI) GetSPAdGroups(campaignId string) (r []*campaignsmodel.AdGroupDTO, err error) {
+	r = make([]*campaignsmodel.AdGroupDTO, 0)
 
 	if campaignId == "" {
 		err = errors.New("Missing AdGroupId")
