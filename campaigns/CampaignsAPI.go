@@ -79,16 +79,20 @@ func (x *CampaignsAPI) GetSBCampaigns(portfolioID string) (r []*campaignsmodel.S
 	return
 }
 
-func (x *CampaignsAPI) GetSPTargets(adGroupId string) (r []*campaignsmodel.TargetDTO, err error) {
-	r = make([]*campaignsmodel.TargetDTO, 0)
+// #endregion
 
-	if adGroupId == "" {
+// #region Ad Groups
+
+func (x *CampaignsAPI) GetSPAdGroups(campaignId string) (r *campaignsmodel.AdGroupDTO, err error) {
+	r = new(campaignsmodel.AdGroupDTO)
+
+	if campaignId == "" {
 		err = errors.New("Missing AdGroupId")
 		return
 	}
 
 	// Send request
-	bytes, err := x.Send("GET", "/v2/sp/targets?&adGroupIdFilter="+adGroupId, nil)
+	bytes, err := x.Send("GET", "/v2/sp/adGroups?&campaignIdFilter="+campaignId, nil)
 	if err != nil {
 		return
 	}
@@ -109,6 +113,30 @@ func (x *CampaignsAPI) GetSPAdGroupsBid(adGroupId string) (r *campaignsmodel.Bid
 
 	// Send request
 	bytes, err := x.Send("GET", "/v2/sp/adGroups/"+adGroupId+"/bidRecommendations", nil)
+	if err != nil {
+		return
+	}
+
+	// decode
+	err = json.Unmarshal(bytes, &r)
+	u.LogError(err)
+	return
+}
+
+// #endregion
+
+// #region Targets
+
+func (x *CampaignsAPI) GetSPTargets(adGroupId string) (r []*campaignsmodel.TargetDTO, err error) {
+	r = make([]*campaignsmodel.TargetDTO, 0)
+
+	if adGroupId == "" {
+		err = errors.New("Missing AdGroupId")
+		return
+	}
+
+	// Send request
+	bytes, err := x.Send("GET", "/v2/sp/targets?&adGroupIdFilter="+adGroupId, nil)
 	if err != nil {
 		return
 	}
