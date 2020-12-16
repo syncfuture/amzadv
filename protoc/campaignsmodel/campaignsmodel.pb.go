@@ -21,7 +21,8 @@ var _ = math.Inf
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
 type SPCampaignDTO struct {
-	ID                   int64       `protobuf:"varint,1,opt,name=ID,proto3" json:"ID,omitempty"`
+	// `json:"campaignId,omitempty"`
+	ID                   int64       `protobuf:"varint,1,opt,name=ID,proto3" json:"campaignId,omitempty"`
 	PortfolioID          int64       `protobuf:"varint,2,opt,name=PortfolioID,proto3" json:"PortfolioID,omitempty"`
 	Name                 string      `protobuf:"bytes,3,opt,name=Name,proto3" json:"Name,omitempty"`
 	CampaignType         string      `protobuf:"bytes,4,opt,name=CampaignType,proto3" json:"CampaignType,omitempty"`
@@ -234,7 +235,8 @@ func (m *AdjustmentDTO) GetPercentage() float32 {
 }
 
 type SBCampaignDTO struct {
-	ID                   int64           `protobuf:"varint,1,opt,name=ID,proto3" json:"ID,omitempty"`
+	// `json:"campaignId,omitempty"`
+	ID                   int64           `protobuf:"varint,1,opt,name=ID,proto3" json:"campaignId,omitempty"`
 	PortfolioID          int64           `protobuf:"varint,2,opt,name=PortfolioID,proto3" json:"PortfolioID,omitempty"`
 	Name                 string          `protobuf:"bytes,3,opt,name=Name,proto3" json:"Name,omitempty"`
 	Budget               float32         `protobuf:"fixed32,4,opt,name=Budget,proto3" json:"Budget,omitempty"`

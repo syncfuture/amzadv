@@ -4,22 +4,22 @@ package campaignsmodel;
 
 option go_package = "github.com/syncfuture/amzadv/protoc/campaignsmodel";
 
-
 // ========================================================================================
 // SP Campaigns
 
 message SPCampaignDTO  {
-    int64 ID                  = 1; //`json:"campaignId,omitempty"`
-    int64 PortfolioID         = 2; //`json:"portfolioId,omitempty"`
-    string Name               = 3; //`json:"name,omitempty"`
-    string CampaignType       = 4; //`json:"campaignType,omitempty"`
-    string TargetingType      = 5; //`json:"targetingType,omitempty"`
-    bool PremiumBidAdjustment = 6; //`json:"premiumBidAdjustment,omitempty"`
-    float DailyBudget         = 7; //`json:"dailyBudget,omitempty"`
-    string StartDate          = 8; //`json:"startDate,omitempty"`
-    string EndDate            = 9; //`json:"endDate,omitempty"`
-    string State              = 10; //`json:"state,omitempty"`
-    BiddingDTO Bidding        = 11; //`json:"bidding,omitempty"`
+    // `json:"campaignId,omitempty"`
+    int64 ID                  = 1; 
+    int64 PortfolioID         = 2; 
+    string Name               = 3; 
+    string CampaignType       = 4; 
+    string TargetingType      = 5; 
+    bool PremiumBidAdjustment = 6; 
+    float DailyBudget         = 7; 
+    string StartDate          = 8; 
+    string EndDate            = 9; 
+    string State              = 10;
+    BiddingDTO Bidding        = 11;
 }
 
 message BiddingDTO  {
@@ -36,19 +36,20 @@ message AdjustmentDTO  {
 // SB Campaigns
 
 message SBCampaignDTO  {
-    int64 ID                   = 1;  //`json:"campaignId,omitempty"`
-    int64 PortfolioID          = 2;  //`json:"portfolioId,omitempty"`
-    string Name                = 3;  //`json:"name,omitempty"`
-    float Budget               = 4;  //`json:"budget,omitempty"`
-    bool BidOptimization       = 5;  //`json:"bidOptimization,omitempty"`
-    string AdFormat            = 6;  //`json:"adFormat,omitempty"`
-    string BudgetType          = 7;  //`json:"	budgetType,omitempty"`
-    string StartDate           = 8;  //`json:"startDate,omitempty"`
-    string EndDate             = 9;  //`json:"endDate,omitempty"`
-    string State               = 10; //`json:"state,omitempty"`
-    string ServingStatus       = 11; //`json:"servingStatus,omitempty"`
-    CreativeDTO Creative       = 12; //`json:"creative,omitempty"`
-    LandingPageDTO LandingPage = 13; //`json:"landingPage,omitempty"`
+    // `json:"campaignId,omitempty"`
+    int64 ID                   = 1; 
+    int64 PortfolioID          = 2; 
+    string Name                = 3; 
+    float Budget               = 4; 
+    bool BidOptimization       = 5; 
+    string AdFormat            = 6; 
+    string BudgetType          = 7; 
+    string StartDate           = 8; 
+    string EndDate             = 9; 
+    string State               = 10;
+    string ServingStatus       = 11;
+    CreativeDTO Creative       = 12;
+    LandingPageDTO LandingPage = 13;
 }
 
 
