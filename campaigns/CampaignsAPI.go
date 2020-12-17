@@ -182,16 +182,16 @@ func (x *CampaignsAPI) GetSPTargets(adGroupId string) (r []*campaignsmodel.Targe
 	return
 }
 
-func (x *CampaignsAPI) GetSPTargetsBids(target *campaignsmodel.TargetDTO) (r []*campaignsmodel.BidRecommendationsDTO, err error) {
+func (x *CampaignsAPI) GetSPTargetsBids(in *TargetsBidsQuery) (r []*campaignsmodel.BidRecommendationsDTO, err error) {
 	r = make([]*campaignsmodel.BidRecommendationsDTO, 0)
 
-	if target.AdGroupID == 0 {
+	if in.AdGroupID == 0 {
 		err = errors.New("Missing AdGroupId")
 		return
 	}
 
 	// Send request
-	body, _ := json.Marshal(target)
+	body, _ := json.Marshal(in)
 	bytes, err := x.Send("POST", "/v2/sp/targets/bidRecommendations", body)
 	if err != nil {
 		return
