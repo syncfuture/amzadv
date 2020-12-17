@@ -3,6 +3,7 @@ package campaigns
 import (
 	"encoding/json"
 	"errors"
+	"net/url"
 
 	"github.com/syncfuture/amzadv/core"
 	"github.com/syncfuture/amzadv/protoc/campaignsmodel"
@@ -10,6 +11,20 @@ import (
 
 	"github.com/syncfuture/go/u"
 )
+
+// var (
+// 	AdGroupMap = map[string]string{
+// 		"LF-US": "126059537267120",
+// 		"LF-CA": "190293692100357",
+// 		"LF-MX": "125142947684660",
+// 		"FF-US": "244523535626646",
+// 		"FF-CA": "244523535626646",
+// 		"FF-MX": "244523535626646",
+// 		"HH-US": "164315009197103",
+// 		"HH-CA": "164315009197103",
+// 		"HH-MX": "164315009197103",
+// 	}
+// )
 
 type CampaignsAPI struct {
 	core.APIClient
@@ -83,16 +98,36 @@ func (x *CampaignsAPI) GetSBCampaigns(portfolioID string) (r []*campaignsmodel.S
 
 // #region Ad Groups
 
-func (x *CampaignsAPI) GetSPAdGroups(campaignId string) (r []*campaignsmodel.AdGroupDTO, err error) {
+// func (x *CampaignsAPI) GetSPAdGroups(campaignId string) (r []*campaignsmodel.AdGroupDTO, err error) {
+// 	r = make([]*campaignsmodel.AdGroupDTO, 0)
+
+// 	if campaignId == "" {
+// 		err = errors.New("Missing AdGroupId")
+// 		return
+// 	}
+
+// 	// Send request
+// 	bytes, err := x.Send("GET", "/v2/sp/adGroups?&campaignIdFilter="+campaignId, nil)
+// 	if err != nil {
+// 		return
+// 	}
+
+// 	// decode
+// 	err = json.Unmarshal(bytes, &r)
+// 	u.LogError(err)
+// 	return
+// }
+
+func (x *CampaignsAPI) GetSPAdGroupsByName(name string) (r []*campaignsmodel.AdGroupDTO, err error) {
 	r = make([]*campaignsmodel.AdGroupDTO, 0)
 
-	if campaignId == "" {
-		err = errors.New("Missing AdGroupId")
+	if name == "" {
+		err = errors.New("Missing Name")
 		return
 	}
 
 	// Send request
-	bytes, err := x.Send("GET", "/v2/sp/adGroups?&campaignIdFilter="+campaignId, nil)
+	bytes, err := x.Send("GET", "/v2/sp/adGroups?&name="+url.QueryEscape(name), nil)
 	if err != nil {
 		return
 	}

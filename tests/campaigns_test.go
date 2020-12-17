@@ -24,9 +24,9 @@ func TestGetSPCampaigns(t *testing.T) {
 }
 
 func TestGetAdGroupBid(t *testing.T) {
-	id := "99020166512274"
+	name := "Ad Group for Bid Recommend"
 
-	r, err := _campaignsClient.GetSPAdGroupsBid(id)
+	r, err := _campaignsClient.GetSPAdGroupsByName(name)
 	assert.NoError(t, err)
 	assert.NotNil(t, r)
 	t.Logf("%v\n", r)
