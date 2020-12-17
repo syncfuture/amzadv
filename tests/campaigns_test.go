@@ -22,3 +22,12 @@ func TestGetSPCampaigns(t *testing.T) {
 	t.Logf("%d\n", len(r))
 	t.Logf("%v\n", r[0])
 }
+
+func TestGetAdGroupBid(t *testing.T) {
+	id := "99020166512274"
+
+	r, err := _campaignsClient.GetSPAdGroupsBid(id)
+	assert.NoError(t, err)
+	assert.NotNil(t, r)
+	t.Logf("%v\n", r)
+}
