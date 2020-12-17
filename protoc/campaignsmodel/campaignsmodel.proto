@@ -87,8 +87,8 @@ message ExpressionDTO  {
 }
 
 message SuggestedBidDTO  {
-    float End       = 1; //`json:"rangeEnd,omitempty"`
-    float Start     = 2; //`json:"rangeStart,omitempty"`
+    float RangeEnd       = 1; //`json:"rangeEnd,omitempty"`
+    float RangeStart     = 2; //`json:"rangeStart,omitempty"`
     float Suggested = 3; //`json:"suggested,omitempty"`
 }
 
