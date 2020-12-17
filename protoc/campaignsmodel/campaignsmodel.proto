@@ -96,7 +96,8 @@ message SuggestedBidDTO  {
 // Campaigns
 
 message AdGroupDTO  {
-    int64 ID         = 1; //`json:"adGroupId,omitempty"`
+    //`json:"adGroupId,omitempty"`
+    int64 ID         = 1; 
     int64 CampaignID = 2; //`json:"campaignId,omitempty"`
 	string Name      = 3; //`json:"name,omitempty"`
 	string State     = 4; //`json:"state,omitempty"`

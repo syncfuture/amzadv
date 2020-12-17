@@ -701,7 +701,8 @@ func (m *SuggestedBidDTO) GetSuggested() string {
 }
 
 type AdGroupDTO struct {
-	ID                   int64    `protobuf:"varint,1,opt,name=ID,proto3" json:"ID,omitempty"`
+	//`json:"adGroupId,omitempty"`
+	ID                   int64    `protobuf:"varint,1,opt,name=ID,proto3" json:"adGroupId,omitempty"`
 	CampaignID           int64    `protobuf:"varint,2,opt,name=CampaignID,proto3" json:"CampaignID,omitempty"`
 	Name                 string   `protobuf:"bytes,3,opt,name=Name,proto3" json:"Name,omitempty"`
 	State                string   `protobuf:"bytes,4,opt,name=State,proto3" json:"State,omitempty"`
