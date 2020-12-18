@@ -182,8 +182,8 @@ func (x *CampaignsAPI) GetSPTargets(adGroupId string) (r []*campaignsmodel.Targe
 	return
 }
 
-func (x *CampaignsAPI) GetSPTargetsBids(in *TargetsBidsQuery) (r []*campaignsmodel.BidRecommendationsDTO, err error) {
-	r = make([]*campaignsmodel.BidRecommendationsDTO, 0)
+func (x *CampaignsAPI) GetSPTargetsBids(in *TargetsBidsQuery) (r *campaignsmodel.BidRecommendationsDTO, err error) {
+	r = new(campaignsmodel.BidRecommendationsDTO)
 
 	if in.AdGroupID == 0 {
 		err = errors.New("Missing AdGroupId")

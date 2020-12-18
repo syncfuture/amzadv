@@ -3,6 +3,8 @@ package tests
 import (
 	"testing"
 
+	"github.com/syncfuture/amzadv/campaigns"
+
 	"github.com/stretchr/testify/assert"
 )
 
@@ -24,9 +26,17 @@ func TestGetSPCampaigns(t *testing.T) {
 }
 
 func TestGetAdGroupBid(t *testing.T) {
-	name := "Ad Group for Bid Recommend"
+	in := &campaigns.TargetsBidsQuery{
+		AdGroupID: 126059537267120,
+		Expressions: [][]*campaigns.Expression{
+			{&campaigns.Expression{Type: "queryBroadRelMatches"}},
+			{&campaigns.Expression{Type: "queryHighRelMatches"}},
+			{&campaigns.Expression{Type: "asinSubstituteRelated"}},
+			{&campaigns.Expression{Type: "asinAccessoryRelated"}},
+		},
+	}
 
-	r, err := _campaignsClient.GetSPAdGroupsByName(name)
+	r, err := _campaignsClient.GetSPTargetsBids(in)
 	assert.NoError(t, err)
 	assert.NotNil(t, r)
 	t.Logf("%v\n", r)

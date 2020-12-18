@@ -71,25 +71,36 @@ message LandingPageDTO  {
 // Bid
 
 message BidRecommendationsDTO  {
-    int64 AdGroupID                             = 1; //`json:"adGroupId,omitempty"`
-    SuggestedBidDTO SuggestedBid                = 2; //`json:"suggestedBid,omitempty"`
-    repeated RecommendationsDTO Recommendations = 3; //`json:"recommendations,omitempty"`
+    //`json:"adGroupId,omitempty"`
+    int64 AdGroupID                             = 1;
+    //`json:"suggestedBid,omitempty"`
+    SuggestedBidDTO SuggestedBid                = 2; 
+    //`json:"recommendations,omitempty"`
+    repeated RecommendationsDTO Recommendations = 3; 
 }
 
 message RecommendationsDTO  {
-    repeated ExpressionDTO Expression = 1; //`json:"expression,omitempty"`
-    SuggestedBidDTO SuggestedBid      = 2; //`json:"suggestedBid,omitempty"`
+    string Code = 1;
+    //`json:"expression,omitempty"`
+    repeated ExpressionDTO Expression = 2; 
+    //`json:"suggestedBid,omitempty"`
+    SuggestedBidDTO SuggestedBid      = 3; 
 }
 
 message ExpressionDTO  {
-    string Value = 1; //`json:"value,omitempty"`
-    string Type  = 2; //`json:"message,omitempty"`
+    //`json:"value,omitempty"`
+    string Value = 1; 
+    //`json:"type,omitempty"`
+    string Type  = 2; 
 }
 
 message SuggestedBidDTO  {
-    float RangeEnd   = 1; //`json:"rangeEnd,omitempty"`
-    float RangeStart = 2; //`json:"rangeStart,omitempty"`
-    float Suggested  = 3; //`json:"suggested,omitempty"`
+    //`json:"rangeEnd,omitempty"`
+    float RangeEnd   = 1; 
+     //`json:"rangeStart,omitempty"`
+    float RangeStart = 2;
+    //`json:"suggested,omitempty"`
+    float Suggested  = 3; 
 }
 
 // ========================================================================================

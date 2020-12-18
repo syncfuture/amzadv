@@ -1,10 +1,12 @@
 package campaigns
 
-import "github.com/syncfuture/amzadv/protoc/campaignsmodel"
-
 type TargetsBidsQuery struct {
-	AdGroupID  int64
-	Expression []*campaignsmodel.ExpressionDTO
+	AdGroupID   int64           `json:"adGroupId"`
+	Expressions [][]*Expression `json:"expressions"`
+}
+
+type Expression struct {
+	Type string `json:"type"`
 }
 
 // // type SponseredReportsQuery struct {
