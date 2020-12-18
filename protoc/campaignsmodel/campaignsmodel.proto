@@ -71,35 +71,25 @@ message LandingPageDTO  {
 // Bid
 
 message BidRecommendationsDTO  {
-    //`json:"adGroupId,omitempty"`
     int64 AdGroupID                             = 1;
-    //`json:"suggestedBid,omitempty"`
     SuggestedBidDTO SuggestedBid                = 2; 
-    //`json:"recommendations,omitempty"`
     repeated RecommendationsDTO Recommendations = 3; 
 }
 
 message RecommendationsDTO  {
     string Code = 1;
-    //`json:"expression,omitempty"`
     repeated ExpressionDTO Expression = 2; 
-    //`json:"suggestedBid,omitempty"`
     SuggestedBidDTO SuggestedBid      = 3; 
 }
 
 message ExpressionDTO  {
-    //`json:"value,omitempty"`
     string Value = 1; 
-    //`json:"type,omitempty"`
     string Type  = 2; 
 }
 
 message SuggestedBidDTO  {
-    //`json:"rangeEnd,omitempty"`
     float RangeEnd   = 1; 
-     //`json:"rangeStart,omitempty"`
     float RangeStart = 2;
-    //`json:"suggested,omitempty"`
     float Suggested  = 3; 
 }
 

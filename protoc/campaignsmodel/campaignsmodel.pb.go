@@ -497,12 +497,9 @@ func (m *LandingPageDTO) GetURL() string {
 }
 
 type BidRecommendationsDTO struct {
-	//`json:"adGroupId,omitempty"`
-	AdGroupID int64 `protobuf:"varint,1,opt,name=AdGroupID,proto3" json:"adGroupId,omitempty"`
-	//`json:"suggestedBid,omitempty"`
-	SuggestedBid *SuggestedBidDTO `protobuf:"bytes,2,opt,name=SuggestedBid,proto3" json:"suggestedBid,omitempty"`
-	//`json:"recommendations,omitempty"`
-	Recommendations      []*RecommendationsDTO `protobuf:"bytes,3,rep,name=Recommendations,proto3" json:"recommendations,omitempty"`
+	AdGroupID            int64                 `protobuf:"varint,1,opt,name=AdGroupID,proto3" json:"AdGroupID,omitempty"`
+	SuggestedBid         *SuggestedBidDTO      `protobuf:"bytes,2,opt,name=SuggestedBid,proto3" json:"SuggestedBid,omitempty"`
+	Recommendations      []*RecommendationsDTO `protobuf:"bytes,3,rep,name=Recommendations,proto3" json:"Recommendations,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}              `json:"-"`
 	XXX_unrecognized     []byte                `json:"-"`
 	XXX_sizecache        int32                 `json:"-"`
@@ -555,11 +552,9 @@ func (m *BidRecommendationsDTO) GetRecommendations() []*RecommendationsDTO {
 }
 
 type RecommendationsDTO struct {
-	Code string `protobuf:"bytes,1,opt,name=Code,proto3" json:"Code,omitempty"`
-	//`json:"expression,omitempty"`
-	Expression []*ExpressionDTO `protobuf:"bytes,2,rep,name=Expression,proto3" json:"expression,omitempty"`
-	//`json:"suggestedBid,omitempty"`
-	SuggestedBid         *SuggestedBidDTO `protobuf:"bytes,3,opt,name=SuggestedBid,proto3" json:"suggestedBid,omitempty"`
+	Code                 string           `protobuf:"bytes,1,opt,name=Code,proto3" json:"Code,omitempty"`
+	Expression           []*ExpressionDTO `protobuf:"bytes,2,rep,name=Expression,proto3" json:"Expression,omitempty"`
+	SuggestedBid         *SuggestedBidDTO `protobuf:"bytes,3,opt,name=SuggestedBid,proto3" json:"SuggestedBid,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}         `json:"-"`
 	XXX_unrecognized     []byte           `json:"-"`
 	XXX_sizecache        int32            `json:"-"`
@@ -612,10 +607,8 @@ func (m *RecommendationsDTO) GetSuggestedBid() *SuggestedBidDTO {
 }
 
 type ExpressionDTO struct {
-	//`json:"value,omitempty"`
-	Value string `protobuf:"bytes,1,opt,name=Value,proto3" json:"value,omitempty"`
-	//`json:"type,omitempty"`
-	Type                 string   `protobuf:"bytes,2,opt,name=Type,proto3" json:"type,omitempty"`
+	Value                string   `protobuf:"bytes,1,opt,name=Value,proto3" json:"Value,omitempty"`
+	Type                 string   `protobuf:"bytes,2,opt,name=Type,proto3" json:"Type,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -661,12 +654,9 @@ func (m *ExpressionDTO) GetType() string {
 }
 
 type SuggestedBidDTO struct {
-	//`json:"rangeEnd,omitempty"`
-	RangeEnd float32 `protobuf:"fixed32,1,opt,name=RangeEnd,proto3" json:"rangeEnd,omitempty"`
-	//`json:"rangeStart,omitempty"`
-	RangeStart float32 `protobuf:"fixed32,2,opt,name=RangeStart,proto3" json:"rangeStart,omitempty"`
-	//`json:"suggested,omitempty"`
-	Suggested            float32  `protobuf:"fixed32,3,opt,name=Suggested,proto3" json:"suggested,omitempty"`
+	RangeEnd             float32  `protobuf:"fixed32,1,opt,name=RangeEnd,proto3" json:"RangeEnd,omitempty"`
+	RangeStart           float32  `protobuf:"fixed32,2,opt,name=RangeStart,proto3" json:"RangeStart,omitempty"`
+	Suggested            float32  `protobuf:"fixed32,3,opt,name=Suggested,proto3" json:"Suggested,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
