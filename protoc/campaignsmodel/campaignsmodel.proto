@@ -130,3 +130,10 @@ message TargetDTO  {
     float Bid                         = 6; //`json:"bid,omitempty"`
     string State                      = 7; //`json:"state,omitempty"`
 }
+
+message ResponseDTO{
+    string Code = 1;
+    string Description = 2;
+    string Details = 3;
+
+}

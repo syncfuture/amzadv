@@ -207,29 +207,69 @@ func (x *CampaignsAPI) GetSPTargetsBids(in *TargetsBidsQuery) (r *campaignsmodel
 
 // #region Create & Update
 
-func (x *CampaignsAPI) CreateSPCampaigns(entries []*campaignsmodel.SPCampaignDTO) (r []byte, err error) {
+func (x *CampaignsAPI) CreateSPCampaigns(entries []*campaignsmodel.SPCampaignDTO) (r *campaignsmodel.ResponseDTO) {
 	body, _ := json.Marshal(entries)
-	return x.Send("POST", "/sb/campaigns", body)
+	bytes, err := x.Send("POST", "/sb/campaigns", body)
+	if err != nil {
+		return
+	}
+
+	// decode
+	err = json.Unmarshal(bytes, &r)
+	u.LogError(err)
+	return
 }
 
-func (x *CampaignsAPI) CreateSPAdGroups(entries []*campaignsmodel.AdGroupDTO) (r []byte, err error) {
+func (x *CampaignsAPI) CreateSPAdGroups(entries []*campaignsmodel.AdGroupDTO) (r *campaignsmodel.ResponseDTO) {
 	body, _ := json.Marshal(entries)
-	return x.Send("POST", "/sb/adGroups", body)
+	bytes, err := x.Send("POST", "/sb/adGroups", body)
+	if err != nil {
+		return
+	}
+
+	// decode
+	err = json.Unmarshal(bytes, &r)
+	u.LogError(err)
+	return
 }
 
-func (x *CampaignsAPI) CreateSPKeywords(entries []*campaignsmodel.KeywordDTO) (r []byte, err error) {
+func (x *CampaignsAPI) CreateSPKeywords(entries []*campaignsmodel.KeywordDTO) (r *campaignsmodel.ResponseDTO) {
 	body, _ := json.Marshal(entries)
-	return x.Send("POST", "/sb/keywords", body)
+	bytes, err := x.Send("POST", "/sb/keywords", body)
+	if err != nil {
+		return
+	}
+
+	// decode
+	err = json.Unmarshal(bytes, &r)
+	u.LogError(err)
+	return
 }
 
-func (x *CampaignsAPI) CreateSPProductAds(entries []*campaignsmodel.ProductAdDTO) (r []byte, err error) {
+func (x *CampaignsAPI) CreateSPProductAds(entries []*campaignsmodel.ProductAdDTO) (r *campaignsmodel.ResponseDTO) {
 	body, _ := json.Marshal(entries)
-	return x.Send("POST", "/sb/productAds", body)
+	bytes, err := x.Send("POST", "/sb/productAds", body)
+	if err != nil {
+		return
+	}
+
+	// decode
+	err = json.Unmarshal(bytes, &r)
+	u.LogError(err)
+	return
 }
 
-func (x *CampaignsAPI) UpdateSPTargets(entries []*campaignsmodel.TargetDTO) (r []byte, err error) {
+func (x *CampaignsAPI) UpdateSPTargets(entries []*campaignsmodel.TargetDTO) (r *campaignsmodel.ResponseDTO) {
 	body, _ := json.Marshal(entries)
-	return x.Send("PUT", "/sb/targets/", body)
+	bytes, err := x.Send("PUT", "/sb/targets/", body)
+	if err != nil {
+		return
+	}
+
+	// decode
+	err = json.Unmarshal(bytes, &r)
+	u.LogError(err)
+	return
 }
 
 // #endregion
