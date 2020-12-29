@@ -37,8 +37,6 @@ func NewCampaignsAPI(config *oauth2.Config, tokenStore core.ITokenStore) (r *Cam
 	return r
 }
 
-// #region Get
-
 func (x *CampaignsAPI) GetPortfolios() (r []*core.PortfolioDTO, err error) {
 	r = make([]*core.PortfolioDTO, 0)
 
@@ -53,6 +51,8 @@ func (x *CampaignsAPI) GetPortfolios() (r []*core.PortfolioDTO, err error) {
 	u.LogError(err)
 	return
 }
+
+// #region Campaigns
 
 func (x *CampaignsAPI) GetSPCampaigns(portfolioID string) (r []*campaignsmodel.SPCampaignDTO, err error) {
 	r = make([]*campaignsmodel.SPCampaignDTO, 0)
@@ -84,6 +84,19 @@ func (x *CampaignsAPI) GetSBCampaigns(portfolioID string) (r []*campaignsmodel.S
 
 	// Send request
 	bytes, err := x.Send("GET", "/sb/campaigns?&portfolioIdFilter="+portfolioID, nil)
+	if err != nil {
+		return
+	}
+
+	// decode
+	err = json.Unmarshal(bytes, &r)
+	u.LogError(err)
+	return
+}
+
+func (x *CampaignsAPI) CreateSPCampaigns(entries []*campaignsmodel.SPCampaignDTO) (r *campaignsmodel.ResponseDTO, err error) {
+	body, _ := json.Marshal(entries)
+	bytes, err := x.Send("POST", "/v2/sp/campaigns", body)
 	if err != nil {
 		return
 	}
@@ -158,6 +171,69 @@ func (x *CampaignsAPI) GetSPAdGroupsBid(adGroupId string) (r *campaignsmodel.Bid
 	return
 }
 
+func (x *CampaignsAPI) CreateSPAdGroups(entries []*campaignsmodel.AdGroupDTO) (r *campaignsmodel.ResponseDTO, err error) {
+	body, _ := json.Marshal(entries)
+	bytes, err := x.Send("POST", "/sb/adGroups", body)
+	if err != nil {
+		return
+	}
+
+	// decode
+	err = json.Unmarshal(bytes, &r)
+	u.LogError(err)
+	return
+}
+
+// #endregion
+
+// #region Product Ads
+
+func (x *CampaignsAPI) GetSPProductAds(adGroupId string) (r []*campaignsmodel.ProductAdDTO, err error) {
+	r = make([]*campaignsmodel.ProductAdDTO, 0)
+
+	if adGroupId == "" {
+		err = errors.New("Missing AdGroupId")
+		return
+	}
+
+	// Send request
+	bytes, err := x.Send("GET", "/v2/sp/productAds?&adGroupIdFilter="+adGroupId, nil)
+	if err != nil {
+		return
+	}
+
+	// decode
+	err = json.Unmarshal(bytes, &r)
+	u.LogError(err)
+	return
+}
+
+func (x *CampaignsAPI) CreateSPProductAds(entries []*campaignsmodel.ProductAdDTO) (r *campaignsmodel.ResponseDTO, err error) {
+	body, _ := json.Marshal(entries)
+	bytes, err := x.Send("POST", "/v2/sb/productAds", body)
+	if err != nil {
+		return
+	}
+
+	// decode
+	err = json.Unmarshal(bytes, &r)
+	u.LogError(err)
+	return
+}
+
+func (x *CampaignsAPI) UpdateSPProductAds(entries []*campaignsmodel.ProductAdDTO) (r *campaignsmodel.ResponseDTO, err error) {
+	body, _ := json.Marshal(entries)
+	bytes, err := x.Send("PUT", "/v2/sp/productAds", body)
+	if err != nil {
+		return
+	}
+
+	// decode
+	err = json.Unmarshal(bytes, &r)
+	u.LogError(err)
+	return
+}
+
 // #endregion
 
 // #region Targets
@@ -203,65 +279,26 @@ func (x *CampaignsAPI) GetSPTargetsBids(in *TargetsBidsQuery) (r *campaignsmodel
 	return
 }
 
+func (x *CampaignsAPI) UpdateSPTargets(entries []*campaignsmodel.TargetDTO) (r *campaignsmodel.ResponseDTO, err error) {
+	body, _ := json.Marshal(entries)
+	bytes, err := x.Send("PUT", "/v2/sb/targets/", body)
+	if err != nil {
+		return
+	}
+
+	// decode
+	err = json.Unmarshal(bytes, &r)
+	u.LogError(err)
+	return
+}
+
 // #endregion
 
-// #region Create & Update
-
-func (x *CampaignsAPI) CreateSPCampaigns(entries []*campaignsmodel.SPCampaignDTO) (r *campaignsmodel.ResponseDTO, err error) {
-	body, _ := json.Marshal(entries)
-	bytes, err := x.Send("POST", "/sb/campaigns", body)
-	if err != nil {
-		return
-	}
-
-	// decode
-	err = json.Unmarshal(bytes, &r)
-	u.LogError(err)
-	return
-}
-
-func (x *CampaignsAPI) CreateSPAdGroups(entries []*campaignsmodel.AdGroupDTO) (r *campaignsmodel.ResponseDTO, err error) {
-	body, _ := json.Marshal(entries)
-	bytes, err := x.Send("POST", "/sb/adGroups", body)
-	if err != nil {
-		return
-	}
-
-	// decode
-	err = json.Unmarshal(bytes, &r)
-	u.LogError(err)
-	return
-}
+// #region Keywords
 
 func (x *CampaignsAPI) CreateSPKeywords(entries []*campaignsmodel.KeywordDTO) (r *campaignsmodel.ResponseDTO, err error) {
 	body, _ := json.Marshal(entries)
-	bytes, err := x.Send("POST", "/sb/keywords", body)
-	if err != nil {
-		return
-	}
-
-	// decode
-	err = json.Unmarshal(bytes, &r)
-	u.LogError(err)
-	return
-}
-
-func (x *CampaignsAPI) CreateSPProductAds(entries []*campaignsmodel.ProductAdDTO) (r *campaignsmodel.ResponseDTO, err error) {
-	body, _ := json.Marshal(entries)
-	bytes, err := x.Send("POST", "/sb/productAds", body)
-	if err != nil {
-		return
-	}
-
-	// decode
-	err = json.Unmarshal(bytes, &r)
-	u.LogError(err)
-	return
-}
-
-func (x *CampaignsAPI) UpdateSPTargets(entries []*campaignsmodel.TargetDTO) (r *campaignsmodel.ResponseDTO, err error) {
-	body, _ := json.Marshal(entries)
-	bytes, err := x.Send("PUT", "/sb/targets/", body)
+	bytes, err := x.Send("POST", "/v2/sb/keywords", body)
 	if err != nil {
 		return
 	}
