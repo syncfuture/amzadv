@@ -132,8 +132,10 @@ message TargetDTO  {
 }
 
 message ResponseDTO{
-    string Code = 1;
-    string Description = 2;
-    string Details = 3;
+    int64 CampaignID   = 1; 
+    int64 AdGroupID    = 2; 
+    string Code        = 3;
+    string Description = 4;
+    string Details     = 5;
 
 }
