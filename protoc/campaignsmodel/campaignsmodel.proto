@@ -106,20 +106,20 @@ message AdGroupDTO  {
 }
 
 message ProductAdDTO  {
-    int64 AdGroupID  = 1; //`json:"adGroupId,omitempty"`
-    int64 CampaignID = 2; //`json:"campaignId,omitempty"`
-    string SKU       = 3; //`json:"sku,omitempty"`
-    string State     = 4; //`json:"state,omitempty"`
+    int64 AdID       = 1; //`json:"adId,omitempty"`
+    int64 AdGroupID  = 2; //`json:"adGroupId,omitempty"`
+    int64 CampaignID = 3; //`json:"campaignId,omitempty"`
+    string SKU       = 4; //`json:"sku,omitempty"`
+    string State     = 5; //`json:"state,omitempty"`
 }
 
 message KeywordDTO  {
-    int64 AdID         = 1; //`json:"adId,omitempty"`
-    int64 CampaignID   = 2; //`json:"campaignId,omitempty"`
-    int64 AdGroupID    = 3; //`json:"adGroupId,omitempty"`
-    string State       = 4; //`json:"state,omitempty"`
-    string KeywordText = 5; //`json:"keywordText,omitempty"`
-	string MatchType   = 6; //`json:"matchType,omitempty"`
-	float Bid          = 7; //`json:"bid,omitempty"`
+    int64 CampaignID   = 1; //`json:"campaignId,omitempty"`
+    int64 AdGroupID    = 2; //`json:"adGroupId,omitempty"`
+    string State       = 3; //`json:"state,omitempty"`
+    string KeywordText = 4; //`json:"keywordText,omitempty"`
+	string MatchType   = 5; //`json:"matchType,omitempty"`
+	float Bid          = 6; //`json:"bid,omitempty"`
 }
 
 message TargetDTO  {
