@@ -94,7 +94,7 @@ func (x *CampaignsAPI) GetSBCampaigns(portfolioID string) (r []*campaignsmodel.S
 	return
 }
 
-func (x *CampaignsAPI) CreateSPCampaigns(entries []*campaignsmodel.SPCampaignDTO) (r *campaignsmodel.ResponseDTO, err error) {
+func (x *CampaignsAPI) CreateSPCampaigns(entries []*campaignsmodel.SPCampaignDTO) (r []*campaignsmodel.ResponseDTO, err error) {
 	body, _ := json.Marshal(entries)
 	bytes, err := x.Send("POST", "/v2/sp/campaigns", body)
 	if err != nil {

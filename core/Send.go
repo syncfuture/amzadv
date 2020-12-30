@@ -34,7 +34,8 @@ func (x *APIClient) Send(action string, uri string, body []byte) (r []byte, err 
 
 	// send request
 	resp, err := x.Request(action, client, url, body)
-	if resp.StatusCode != 200 || u.LogError(err) {
+	if u.LogError(err) {
+		// resp.StatusCode != 200 ||
 		return
 	}
 	defer resp.Body.Close()

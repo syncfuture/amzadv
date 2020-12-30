@@ -3,6 +3,8 @@ package tests
 import (
 	"testing"
 
+	"github.com/syncfuture/amzadv/protoc/campaignsmodel"
+
 	"github.com/syncfuture/amzadv/campaigns"
 
 	"github.com/stretchr/testify/assert"
@@ -23,6 +25,41 @@ func TestGetSPCampaigns(t *testing.T) {
 	assert.NotNil(t, r)
 	t.Logf("%d\n", len(r))
 	t.Logf("%v\n", r[0])
+}
+
+func TestCreateSPCampaigns(t *testing.T) {
+	in := []*campaignsmodel.SPCampaignDTO{
+		&campaignsmodel.SPCampaignDTO{
+			// ID:                   42441275323797,
+			PortfolioID:          8956684801033,
+			Name:                 "test-campaign - Auto",
+			CampaignType:         "sponsoredProducts",
+			TargetingType:        "auto",
+			PremiumBidAdjustment: false,
+			State:                "enabled",
+			DailyBudget:          1.00,
+			StartDate:            "20210131",
+			EndDate:              "",
+			Bidding: &campaignsmodel.BiddingDTO{
+				Strategy: "legacyForSales",
+				Adjustments: []*campaignsmodel.AdjustmentDTO{
+					&campaignsmodel.AdjustmentDTO{
+						Predicate:  "placementTop",
+						Percentage: 50,
+					},
+					&campaignsmodel.AdjustmentDTO{
+						Predicate:  "placementProductPage",
+						Percentage: 50,
+					},
+				},
+			},
+		},
+	}
+
+	r, err := _campaignsClient.CreateSPCampaigns(in)
+	assert.NoError(t, err)
+	assert.NotNil(t, r)
+	t.Logf("%v\n", r)
 }
 
 func TestGetAdGroupBid(t *testing.T) {
