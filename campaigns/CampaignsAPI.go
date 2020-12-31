@@ -151,7 +151,7 @@ func (x *CampaignsAPI) GetSPAdGroupsBid(adGroupId string) (r *campaignsmodel.Bid
 	return
 }
 
-func (x *CampaignsAPI) CreateSPAdGroups(entries []*campaignsmodel.AdGroupDTO) (r *campaignsmodel.ResponseDTO, err error) {
+func (x *CampaignsAPI) CreateSPAdGroups(entries []*campaignsmodel.AdGroupDTO) (r []*campaignsmodel.ResponseDTO, err error) {
 	body, _ := json.Marshal(entries)
 	bytes, err := x.Send("POST", "/v2/sp/adGroups", body)
 	if err != nil {
@@ -188,7 +188,7 @@ func (x *CampaignsAPI) GetSPProductAds(adGroupId string) (r []*campaignsmodel.Pr
 	return
 }
 
-func (x *CampaignsAPI) CreateSPProductAds(entries []*campaignsmodel.ProductAdDTO) (r *campaignsmodel.ResponseDTO, err error) {
+func (x *CampaignsAPI) CreateSPProductAds(entries []*campaignsmodel.ProductAdDTO) (r []*campaignsmodel.ResponseDTO, err error) {
 	body, _ := json.Marshal(entries)
 	bytes, err := x.Send("POST", "/v2/sp/productAds", body)
 	if err != nil {
@@ -201,7 +201,7 @@ func (x *CampaignsAPI) CreateSPProductAds(entries []*campaignsmodel.ProductAdDTO
 	return
 }
 
-func (x *CampaignsAPI) UpdateSPProductAds(entries []*campaignsmodel.ProductAdDTO) (r *campaignsmodel.ResponseDTO, err error) {
+func (x *CampaignsAPI) UpdateSPProductAds(entries []*campaignsmodel.ProductAdDTO) (r []*campaignsmodel.ResponseDTO, err error) {
 	body, _ := json.Marshal(entries)
 	bytes, err := x.Send("PUT", "/v2/sp/productAds", body)
 	if err != nil {
@@ -259,7 +259,7 @@ func (x *CampaignsAPI) GetSPTargetsBids(in *TargetsBidsQuery) (r *campaignsmodel
 	return
 }
 
-func (x *CampaignsAPI) UpdateSPTargets(entries []*campaignsmodel.TargetDTO) (r *campaignsmodel.ResponseDTO, err error) {
+func (x *CampaignsAPI) UpdateSPTargets(entries []*campaignsmodel.TargetDTO) (r []*campaignsmodel.ResponseDTO, err error) {
 	body, _ := json.Marshal(entries)
 	bytes, err := x.Send("PUT", "/v2/sp/targets", body)
 	if err != nil {
@@ -276,7 +276,7 @@ func (x *CampaignsAPI) UpdateSPTargets(entries []*campaignsmodel.TargetDTO) (r *
 
 // #region Keywords
 
-func (x *CampaignsAPI) CreateSPKeywords(entries []*campaignsmodel.KeywordDTO) (r *campaignsmodel.ResponseDTO, err error) {
+func (x *CampaignsAPI) CreateSPKeywords(entries []*campaignsmodel.KeywordDTO) (r []*campaignsmodel.ResponseDTO, err error) {
 	body, _ := json.Marshal(entries)
 	bytes, err := x.Send("POST", "/v2/sp/keywords", body)
 	if err != nil {
