@@ -161,10 +161,12 @@ message ProductAdDTO  {
     int64 AdGroupID  = 2;
     //`json:"campaignId,omitempty"`
     int64 CampaignID = 3; 
+    //`json:"asin,omitempty"`
+    string ASIN      = 4; 
     //`json:"sku,omitempty"`
-    string SKU       = 4; 
+    string SKU       = 5; 
     //`json:"state,omitempty"`
-    string State     = 5; 
+    string State     = 6; 
 }
 
 message KeywordDTO  {
