@@ -168,7 +168,7 @@ func (x *CampaignsAPI) CreateSPAdGroups(entries []*campaignsmodel.AdGroupDTO) (r
 
 // #region Product Ads
 
-func (x *CampaignsAPI) GetSPProductAds(adGroupId string) (r []*campaignsmodel.ProductAdDTO, err error) {
+func (x *CampaignsAPI) GetSPProductAds(adGroupId string, state string) (r []*campaignsmodel.ProductAdDTO, err error) {
 	r = make([]*campaignsmodel.ProductAdDTO, 0)
 
 	if adGroupId == "" {
@@ -176,8 +176,13 @@ func (x *CampaignsAPI) GetSPProductAds(adGroupId string) (r []*campaignsmodel.Pr
 		return
 	}
 
+	uri := "/v2/sp/productAds?&adGroupIdFilter=" + adGroupId
+	if state != "" {
+		uri += "&stateFilter=" + state
+	}
+
 	// Send request
-	bytes, err := x.Send("GET", "/v2/sp/productAds?&adGroupIdFilter="+adGroupId, nil)
+	bytes, err := x.Send("GET", uri, nil)
 	if err != nil {
 		return
 	}
