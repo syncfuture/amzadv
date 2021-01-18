@@ -94,6 +94,26 @@ func (x *CampaignsAPI) GetSBCampaigns(portfolioID string) (r []*campaignsmodel.S
 	return
 }
 
+func (x *CampaignsAPI) GetSPCampaignsByName(portfolioID string, name string) (r []*campaignsmodel.SPCampaignDTO, err error) {
+	r = make([]*campaignsmodel.SPCampaignDTO, 0)
+
+	if name == "" {
+		err = errors.New("Missing Name")
+		return
+	}
+
+	// Send request
+	bytes, err := x.Send("GET", "/v2/sp/campaigns?&portfolioIdFilter="+portfolioID+"&name="+url.QueryEscape(name), nil)
+	if err != nil {
+		return
+	}
+
+	// decode
+	err = json.Unmarshal(bytes, &r)
+	u.LogError(err)
+	return
+}
+
 func (x *CampaignsAPI) CreateSPCampaigns(entries []*campaignsmodel.SPCampaignDTO) (r []*campaignsmodel.ResponseDTO, err error) {
 	body, _ := json.Marshal(entries)
 	bytes, err := x.Send("POST", "/v2/sp/campaigns", body)
