@@ -111,7 +111,7 @@ func (x *CampaignsAPI) CreateSPCampaigns(entries []*campaignsmodel.SPCampaignDTO
 
 // #region Ad Groups
 
-func (x *CampaignsAPI) GetSPAdGroupsByName(name string) (r []*campaignsmodel.AdGroupDTO, err error) {
+func (x *CampaignsAPI) GetSPAdGroupsByName(campaignId string, name string) (r []*campaignsmodel.AdGroupDTO, err error) {
 	r = make([]*campaignsmodel.AdGroupDTO, 0)
 
 	if name == "" {
@@ -120,7 +120,7 @@ func (x *CampaignsAPI) GetSPAdGroupsByName(name string) (r []*campaignsmodel.AdG
 	}
 
 	// Send request
-	bytes, err := x.Send("GET", "/v2/sp/adGroups?&name="+url.QueryEscape(name), nil)
+	bytes, err := x.Send("GET", "/v2/sp/adGroups?campaignIdFilter="+campaignId+"&name="+url.QueryEscape(name), nil)
 	if err != nil {
 		return
 	}
