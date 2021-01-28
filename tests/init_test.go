@@ -4,7 +4,7 @@ import (
 	"github.com/syncfuture/amzadv/campaigns"
 	"github.com/syncfuture/amzadv/core"
 	"github.com/syncfuture/amzadv/reports"
-	"github.com/syncfuture/go/config"
+	config "github.com/syncfuture/go/sconfig"
 	"github.com/syncfuture/go/sredis"
 	"golang.org/x/oauth2"
 )
