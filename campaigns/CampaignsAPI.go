@@ -419,7 +419,7 @@ func (x *CampaignsAPI) GetLandingPageASINs(pageUrl string) (r *campaignsmodel.La
 	return
 }
 
-func (x *CampaignsAPI) CreateStoreAssets(in *campaignsmodel.CreateStoreAssetCommand) (r []*campaignsmodel.ResponseDTO, err error) {
+func (x *CampaignsAPI) CreateStoreAssets(in *campaignsmodel.CreateStoreAssetCommand) (r *campaignsmodel.ResponseDTO, err error) {
 	body, _ := json.Marshal(in)
 
 	req := x.NewHttpRequest("PUT", "/stores/assets", body)
