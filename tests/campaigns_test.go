@@ -78,3 +78,10 @@ func TestGetAdGroupBid(t *testing.T) {
 	assert.NotNil(t, r)
 	t.Logf("%v\n", r)
 }
+
+func TestGetBrands(t *testing.T) {
+	r, err := _campaignsClient.GetBrands()
+	assert.NoError(t, err)
+	assert.NotNil(t, r)
+	t.Log(r)
+}

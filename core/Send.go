@@ -2,37 +2,24 @@ package core
 
 import (
 	"bytes"
-	"errors"
 	"io/ioutil"
 	"net/http"
 	"strings"
 
 	"github.com/syncfuture/go/u"
-	"golang.org/x/oauth2"
 )
 
 func (x *APIClient) Send(action string, uri string, body []byte) (r []byte, err error) {
 	r = make([]byte, 0)
 
-	if x.AdvURL == "" || x.ProfileID == "" {
-		err = errors.New("Missing AdvURL or ProfileID")
-		return
-	}
-
-	// token
-	ts, err := x.GetTokenSource()
+	// client
+	client, err := x.NewHttpClient()
 	if err != nil {
 		return
 	}
 
-	// client
-	url := x.AdvURL + uri
-	client := oauth2.NewClient(oauth2.NoContext, ts)
-	client.CheckRedirect = func(req *http.Request, via []*http.Request) error {
-		return http.ErrUseLastResponse
-	}
-
 	// send request
+	url := x.AdvURL + uri
 	resp, err := x.Request(action, client, url, body)
 	if u.LogError(err) {
 		// resp.StatusCode != 200 ||

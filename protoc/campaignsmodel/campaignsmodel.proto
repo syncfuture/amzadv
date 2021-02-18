@@ -31,14 +31,12 @@ message SPCampaignDTO  {
     // `json:"bidding,omitempty"`
     BiddingDTO Bidding        = 11;
 }
-
 message BiddingDTO  {
     // `json:"strategy,omitempty"`
 	string Strategy                    = 1; 
     // `json:"adjustments,omitempty"`
 	repeated AdjustmentDTO Adjustments = 2;
 }
-
 message AdjustmentDTO  {
     // `json:"predicate,omitempty"`
     string Predicate = 1; 
@@ -77,8 +75,6 @@ message SBCampaignDTO  {
     // `json:"landingPage,omitempty"`
     LandingPageDTO LandingPage = 13;
 }
-
-
 message CreativeDTO  {
     //`json:"brandName,omitempty"`
     string BrandName         = 1; 
@@ -93,7 +89,6 @@ message CreativeDTO  {
     //`json:"brandLogoUrl,omitempty"`
     string BrandLogoURL      = 6;
 }
-
 message LandingPageDTO  {
     //`json:"pageType,omitempty"`
     string PageType = 1; 
@@ -112,7 +107,6 @@ message BidRecommendationsDTO  {
     //`json:"recommendations,omitempty"`
     repeated RecommendationsDTO Recommendations = 3; 
 }
-
 message RecommendationsDTO  {
     //`json:"code,omitempty"`
     string Code = 1;
@@ -121,14 +115,12 @@ message RecommendationsDTO  {
     //`json:"suggestedBid,omitempty"`
     SuggestedBidDTO SuggestedBid      = 3; 
 }
-
 message ExpressionDTO  {
     //`json:"value,omitempty"`
     string Value = 1; 
     //`json:"type,omitempty"`
     string Type  = 2; 
 }
-
 message SuggestedBidDTO  {
     //`json:"rangeEnd,omitempty"`
     float RangeEnd   = 1; 
@@ -153,7 +145,6 @@ message AdGroupDTO  {
     //`json:"defaultBid,omitempty"`
 	float DefaultBid = 5; 
 }
-
 message ProductAdDTO  {
     //`json:"adId,omitempty"`
     int64 AdID       = 1; 
@@ -168,7 +159,6 @@ message ProductAdDTO  {
     //`json:"state,omitempty"`
     string State     = 6; 
 }
-
 message KeywordDTO  {
     //`json:"campaignId,omitempty"`
     int64 CampaignID   = 1; 
@@ -183,7 +173,6 @@ message KeywordDTO  {
     //`json:"bid,omitempty"`
     float Bid          = 6; 
 }
-
 message TargetDTO  {
     //`json:"campaignId,omitempty"`
     int64 CampaignID                  = 1;
@@ -200,16 +189,85 @@ message TargetDTO  {
     //`json:"state,omitempty"`
     string State                      = 7; 
 }
-
 message ResponseDTO{
     //`json:"campaignId,omitempty"`
     int64 CampaignID   = 1; 
     //`json:"adGroupId,omitempty"`
     int64 AdGroupID    = 2; 
+    //`json:"assetID,omitempty"`
+    string AssetID     = 3; 
     //`json:"code,omitempty"`
-    string Code        = 3;
+    string Code        = 4;
     //`json:"description,omitempty"`
-    string Description = 4;
+    string Description = 5;
     //`json:"details,omitempty"`
-    string Details     = 5;
+    string Details     = 6;
+}
+
+
+// ========================================================================================
+// Brands
+
+message BrandDTO  {
+    //`json:"brandId,omitempty"`
+    string ID       = 1; 
+    //`json:"brandEntityId,omitempty"`
+    string EntityId = 2;
+    //`json:"brandRegistryName,omitempty"`
+    string Name     = 3; 
+}
+
+
+// ========================================================================================
+// Stores
+
+message StoreDTO  {
+    //`json:"entityId,omitempty"`
+    string EntityId = 1; 
+    //`json:"storeName,omitempty"`
+    string StoreName = 2; 
+    //`json:"storePageInfo,omitempty"`
+    repeated StorePageInfoDTO Pages = 3; 
+    //`json:"brandEntityId,omitempty"`
+    string BrandEntityID = 4; 
+}
+message StorePageInfoDTO {
+    //`json:"storePageId,omitempty"`
+    string ID   = 1; 
+    //`json:"storePageUrl,omitempty"`
+    string URL  = 2; 
+    //`json:"storePageName,omitempty"`
+    string Name = 3; 
+}
+message StoreAssetDTO  {
+    //`json:"assetID,omitempty"`
+    string ID        = 1; 
+    //`json:"url,omitempty"`
+    string URL       = 2;
+    //`json:"mediaType,omitempty"`
+    string MediaType = 3; 
+    //`json:"name,omitempty"`
+    string Name      = 4; 
+    //`json:"brandEntityId,omitempty"`
+    string BrandEntityId = 5; 
+}
+message CreateStoreAssetCommand  {
+    string ImageName = 1; 
+    string ImageType = 2;
+    //`json:"assetInfo,omitempty"`
+    StoreAssetDTO AssetInfo = 3; 
+    //`json:"asset,omitempty"`
+    string Asset = 4; 
+}
+
+// ========================================================================================
+// Landing Pages asins
+
+message LandingPageASINDTO  {
+    //`json:"asinList,omitempty"`
+    repeated string ASINList = 1; 
+    //`json:"code,omitempty"`
+    string code              = 2;
+    //`json:"details,omitempty"`
+    string Details           = 3; 
 }

@@ -127,6 +127,19 @@ func (x *CampaignsAPI) CreateSPCampaigns(entries []*campaignsmodel.SPCampaignDTO
 	return
 }
 
+func (x *CampaignsAPI) CreateSBCampaigns(entries []*campaignsmodel.SBCampaignDTO) (r []*campaignsmodel.ResponseDTO, err error) {
+	body, _ := json.Marshal(entries)
+	bytes, err := x.Send("POST", "/sb/campaigns", body)
+	if err != nil {
+		return
+	}
+
+	// decode
+	err = json.Unmarshal(bytes, &r)
+	u.LogError(err)
+	return
+}
+
 // #endregion
 
 // #region Ad Groups
@@ -304,6 +317,116 @@ func (x *CampaignsAPI) UpdateSPTargets(entries []*campaignsmodel.TargetDTO) (r [
 func (x *CampaignsAPI) CreateSPKeywords(entries []*campaignsmodel.KeywordDTO) (r []*campaignsmodel.ResponseDTO, err error) {
 	body, _ := json.Marshal(entries)
 	bytes, err := x.Send("POST", "/v2/sp/keywords", body)
+	if err != nil {
+		return
+	}
+
+	// decode
+	err = json.Unmarshal(bytes, &r)
+	u.LogError(err)
+	return
+}
+
+func (x *CampaignsAPI) UpdateSBKeywords(entries []*campaignsmodel.KeywordDTO) (r []*campaignsmodel.ResponseDTO, err error) {
+	body, _ := json.Marshal(entries)
+	bytes, err := x.Send("PUT", "/sb/keywords", body)
+	if err != nil {
+		return
+	}
+
+	// decode
+	err = json.Unmarshal(bytes, &r)
+	u.LogError(err)
+	return
+}
+
+// #endregion
+
+// #region SB Brands
+
+func (x *CampaignsAPI) GetBrands() (r []*campaignsmodel.BrandDTO, err error) {
+	r = make([]*campaignsmodel.BrandDTO, 0)
+
+	// Send request
+	bytes, err := x.Send("GET", "/brands", nil)
+	if err != nil {
+		return
+	}
+
+	// decode
+	err = json.Unmarshal(bytes, &r)
+	u.LogError(err)
+	return
+}
+
+func (x *CampaignsAPI) GetStores(brandEntityId string) (r []*campaignsmodel.StoreDTO, err error) {
+	r = make([]*campaignsmodel.StoreDTO, 0)
+
+	if brandEntityId == "" {
+		err = errors.New("Missing brandEntityId")
+		return
+	}
+
+	// Send request
+	bytes, err := x.Send("GET", "/v2/stores/"+brandEntityId, nil)
+	if err != nil {
+		return
+	}
+
+	// decode
+	err = json.Unmarshal(bytes, &r)
+	u.LogError(err)
+	return
+}
+
+func (x *CampaignsAPI) GetStoreAssets(brandEntityId string) (r []*campaignsmodel.StoreAssetDTO, err error) {
+	r = make([]*campaignsmodel.StoreAssetDTO, 0)
+
+	if brandEntityId == "" {
+		err = errors.New("Missing brandEntityId")
+		return
+	}
+
+	// Send request
+	bytes, err := x.Send("GET", "/stores/assets?&brandEntityId="+brandEntityId, nil)
+	if err != nil {
+		return
+	}
+
+	// decode
+	err = json.Unmarshal(bytes, &r)
+	u.LogError(err)
+	return
+}
+
+func (x *CampaignsAPI) GetLandingPageASINs(pageUrl string) (r *campaignsmodel.LandingPageASINDTO, err error) {
+	r = new(campaignsmodel.LandingPageASINDTO)
+
+	if pageUrl == "" {
+		err = errors.New("Missing url")
+		return
+	}
+
+	// Send request
+	bytes, err := x.Send("GET", "/pageAsins?pageUrl="+pageUrl, nil)
+	if err != nil {
+		return
+	}
+
+	// decode
+	err = json.Unmarshal(bytes, &r)
+	u.LogError(err)
+	return
+}
+
+func (x *CampaignsAPI) CreateStoreAssets(in *campaignsmodel.CreateStoreAssetCommand) (r []*campaignsmodel.ResponseDTO, err error) {
+	body, _ := json.Marshal(in)
+
+	req := x.NewHttpRequest("PUT", "/stores/assets", body)
+	req.Header.Set("Content-Disposition", in.ImageName)
+	req.Header.Set("Content-Type", in.ImageType)
+
+	bytes, err := x.HttpSend(req)
 	if err != nil {
 		return
 	}
