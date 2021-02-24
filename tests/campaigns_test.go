@@ -80,7 +80,7 @@ func TestGetAdGroupBid(t *testing.T) {
 }
 
 func TestGetBrands(t *testing.T) {
-	r, err := _campaignsClient.GetBrands()
+	r, err := _campaignsClient.GetStores()
 	assert.NoError(t, err)
 	assert.NotNil(t, r)
 	t.Log(r)

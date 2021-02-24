@@ -359,16 +359,11 @@ func (x *CampaignsAPI) GetBrands() (r []*campaignsmodel.BrandDTO, err error) {
 	return
 }
 
-func (x *CampaignsAPI) GetStores(brandEntityId string) (r []*campaignsmodel.StoreDTO, err error) {
+func (x *CampaignsAPI) GetStores() (r []*campaignsmodel.StoreDTO, err error) {
 	r = make([]*campaignsmodel.StoreDTO, 0)
 
-	if brandEntityId == "" {
-		err = errors.New("Missing brandEntityId")
-		return
-	}
-
 	// Send request
-	bytes, err := x.Send("GET", "/v2/stores/"+brandEntityId, nil)
+	bytes, err := x.Send("GET", "/v2/stores", nil)
 	if err != nil {
 		return
 	}
