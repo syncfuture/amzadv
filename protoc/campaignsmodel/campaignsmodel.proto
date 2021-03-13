@@ -59,7 +59,7 @@ message SBCampaignDTO  {
     // `json:"bidOptimization,omitempty"`
     bool BidOptimization       = 5; 
     // `json:"adFormat,omitempty"`
-    float AdFormat             = 6; 
+    string AdFormat            = 6; 
     // `json:"budgetType,omitempty"`
     float BudgetType           = 7; 
     // `json:"startDate,omitempty"`
