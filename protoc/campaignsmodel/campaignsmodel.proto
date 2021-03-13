@@ -61,7 +61,7 @@ message SBCampaignDTO  {
     // `json:"adFormat,omitempty"`
     string AdFormat            = 6; 
     // `json:"budgetType,omitempty"`
-    float BudgetType           = 7; 
+    string BudgetType           = 7; 
     // `json:"startDate,omitempty"`
     string StartDate           = 8; 
     // `json:"endDate,omitempty"`
