@@ -55,7 +55,7 @@ message SBCampaignDTO  {
     // `json:"name,omitempty"`
     string Name                = 3; 
     // `json:"budget,omitempty"`
-    string Budget              = 4; 
+    float Budget               = 4; 
     // `json:"bidOptimization,omitempty"`
     bool BidOptimization       = 5; 
     // `json:"adFormat,omitempty"`
