@@ -42,7 +42,7 @@ func (x *CampaignsAPI) GetPortfolios() (r []*core.PortfolioDTO, err error) {
 
 	// Send request
 	bytes, err := x.Send("GET", "/v2/portfolios?portfolioStateFilter=enabled", nil)
-	if err != nil {
+	if err != nil || len(bytes) == 0 {
 		return
 	}
 
@@ -64,7 +64,7 @@ func (x *CampaignsAPI) GetSPCampaigns(portfolioID string) (r []*campaignsmodel.S
 
 	// Send request
 	bytes, err := x.Send("GET", "/v2/sp/campaigns?&portfolioIdFilter="+portfolioID, nil)
-	if err != nil {
+	if err != nil || len(bytes) == 0 {
 		return
 	}
 
@@ -84,7 +84,7 @@ func (x *CampaignsAPI) GetSBCampaigns(portfolioID string) (r []*campaignsmodel.S
 
 	// Send request
 	bytes, err := x.Send("GET", "/sb/campaigns?&portfolioIdFilter="+portfolioID, nil)
-	if err != nil {
+	if err != nil || len(bytes) == 0 {
 		return
 	}
 
@@ -104,7 +104,7 @@ func (x *CampaignsAPI) GetSPCampaignsByName(portfolioID string, name string) (r 
 
 	// Send request
 	bytes, err := x.Send("GET", "/v2/sp/campaigns?&portfolioIdFilter="+portfolioID+"&name="+url.QueryEscape(name), nil)
-	if err != nil {
+	if err != nil || len(bytes) == 0 {
 		return
 	}
 
@@ -117,7 +117,7 @@ func (x *CampaignsAPI) GetSPCampaignsByName(portfolioID string, name string) (r 
 func (x *CampaignsAPI) CreateSPCampaigns(entries []*campaignsmodel.SPCampaignDTO) (r []*campaignsmodel.ResponseDTO, err error) {
 	body, _ := json.Marshal(entries)
 	bytes, err := x.Send("POST", "/v2/sp/campaigns", body)
-	if err != nil {
+	if err != nil || len(bytes) == 0 {
 		return
 	}
 
@@ -130,7 +130,7 @@ func (x *CampaignsAPI) CreateSPCampaigns(entries []*campaignsmodel.SPCampaignDTO
 func (x *CampaignsAPI) CreateSBCampaigns(entries []*campaignsmodel.SBCampaignDTO) (r []*campaignsmodel.ResponseDTO, err error) {
 	body, _ := json.Marshal(entries)
 	bytes, err := x.Send("POST", "/sb/campaigns", body)
-	if err != nil {
+	if err != nil || len(bytes) == 0 {
 		return
 	}
 
@@ -154,7 +154,7 @@ func (x *CampaignsAPI) GetSPAdGroupsByName(campaignId string, name string) (r []
 
 	// Send request
 	bytes, err := x.Send("GET", "/v2/sp/adGroups?campaignIdFilter="+campaignId+"&name="+url.QueryEscape(name), nil)
-	if err != nil {
+	if err != nil || len(bytes) == 0 {
 		return
 	}
 
@@ -174,7 +174,7 @@ func (x *CampaignsAPI) GetSPAdGroupsBid(adGroupId string) (r *campaignsmodel.Bid
 
 	// Send request
 	bytes, err := x.Send("GET", "/v2/sp/adGroups/"+adGroupId+"/bidRecommendations", nil)
-	if err != nil {
+	if err != nil || len(bytes) == 0 {
 		return
 	}
 
@@ -187,7 +187,7 @@ func (x *CampaignsAPI) GetSPAdGroupsBid(adGroupId string) (r *campaignsmodel.Bid
 func (x *CampaignsAPI) CreateSPAdGroups(entries []*campaignsmodel.AdGroupDTO) (r []*campaignsmodel.ResponseDTO, err error) {
 	body, _ := json.Marshal(entries)
 	bytes, err := x.Send("POST", "/v2/sp/adGroups", body)
-	if err != nil {
+	if err != nil || len(bytes) == 0 {
 		return
 	}
 
@@ -216,7 +216,7 @@ func (x *CampaignsAPI) GetSPProductAds(adGroupId string, state string) (r []*cam
 
 	// Send request
 	bytes, err := x.Send("GET", uri, nil)
-	if err != nil {
+	if err != nil || len(bytes) == 0 {
 		return
 	}
 
@@ -229,7 +229,7 @@ func (x *CampaignsAPI) GetSPProductAds(adGroupId string, state string) (r []*cam
 func (x *CampaignsAPI) CreateSPProductAds(entries []*campaignsmodel.ProductAdDTO) (r []*campaignsmodel.ResponseDTO, err error) {
 	body, _ := json.Marshal(entries)
 	bytes, err := x.Send("POST", "/v2/sp/productAds", body)
-	if err != nil {
+	if err != nil || len(bytes) == 0 {
 		return
 	}
 
@@ -242,7 +242,7 @@ func (x *CampaignsAPI) CreateSPProductAds(entries []*campaignsmodel.ProductAdDTO
 func (x *CampaignsAPI) UpdateSPProductAds(entries []*campaignsmodel.ProductAdDTO) (r []*campaignsmodel.ResponseDTO, err error) {
 	body, _ := json.Marshal(entries)
 	bytes, err := x.Send("PUT", "/v2/sp/productAds", body)
-	if err != nil {
+	if err != nil || len(bytes) == 0 {
 		return
 	}
 
@@ -266,7 +266,7 @@ func (x *CampaignsAPI) GetSPTargets(adGroupId string) (r []*campaignsmodel.Targe
 
 	// Send request
 	bytes, err := x.Send("GET", "/v2/sp/targets?&adGroupIdFilter="+adGroupId, nil)
-	if err != nil {
+	if err != nil || len(bytes) == 0 {
 		return
 	}
 
@@ -287,7 +287,7 @@ func (x *CampaignsAPI) GetSPTargetsBids(in *TargetsBidsQuery) (r *campaignsmodel
 	// Send request
 	body, _ := json.Marshal(in)
 	bytes, err := x.Send("POST", "/v2/sp/targets/bidRecommendations", body)
-	if err != nil {
+	if err != nil || len(bytes) == 0 {
 		return
 	}
 
@@ -300,7 +300,7 @@ func (x *CampaignsAPI) GetSPTargetsBids(in *TargetsBidsQuery) (r *campaignsmodel
 func (x *CampaignsAPI) UpdateSPTargets(entries []*campaignsmodel.TargetDTO) (r []*campaignsmodel.ResponseDTO, err error) {
 	body, _ := json.Marshal(entries)
 	bytes, err := x.Send("PUT", "/v2/sp/targets", body)
-	if err != nil {
+	if err != nil || len(bytes) == 0 {
 		return
 	}
 
@@ -317,7 +317,7 @@ func (x *CampaignsAPI) UpdateSPTargets(entries []*campaignsmodel.TargetDTO) (r [
 func (x *CampaignsAPI) CreateSPKeywords(entries []*campaignsmodel.KeywordDTO) (r []*campaignsmodel.ResponseDTO, err error) {
 	body, _ := json.Marshal(entries)
 	bytes, err := x.Send("POST", "/v2/sp/keywords", body)
-	if err != nil {
+	if err != nil || len(bytes) == 0 {
 		return
 	}
 
@@ -330,7 +330,7 @@ func (x *CampaignsAPI) CreateSPKeywords(entries []*campaignsmodel.KeywordDTO) (r
 func (x *CampaignsAPI) UpdateSBKeywords(entries []*campaignsmodel.KeywordDTO) (r []*campaignsmodel.ResponseDTO, err error) {
 	body, _ := json.Marshal(entries)
 	bytes, err := x.Send("PUT", "/sb/keywords", body)
-	if err != nil {
+	if err != nil || len(bytes) == 0 {
 		return
 	}
 
@@ -349,7 +349,7 @@ func (x *CampaignsAPI) GetBrands() (r []*campaignsmodel.BrandDTO, err error) {
 
 	// Send request
 	bytes, err := x.Send("GET", "/brands", nil)
-	if err != nil {
+	if err != nil || len(bytes) == 0 {
 		return
 	}
 
@@ -364,7 +364,7 @@ func (x *CampaignsAPI) GetStores() (r []*campaignsmodel.StoreDTO, err error) {
 
 	// Send request
 	bytes, err := x.Send("GET", "/v2/stores", nil)
-	if err != nil {
+	if err != nil || len(bytes) == 0 {
 		return
 	}
 
@@ -384,7 +384,7 @@ func (x *CampaignsAPI) GetStoreAssets(brandEntityId string) (r []*campaignsmodel
 
 	// Send request
 	bytes, err := x.Send("GET", "/stores/assets?&brandEntityId="+brandEntityId, nil)
-	if err != nil {
+	if err != nil || len(bytes) == 0 {
 		return
 	}
 
@@ -404,7 +404,7 @@ func (x *CampaignsAPI) GetLandingPageASINs(pageUrl string) (r *campaignsmodel.La
 
 	// Send request
 	bytes, err := x.Send("GET", "/pageAsins?pageUrl="+pageUrl, nil)
-	if err != nil {
+	if err != nil || len(bytes) == 0 {
 		return
 	}
 
@@ -422,7 +422,7 @@ func (x *CampaignsAPI) CreateStoreAssets(in *campaignsmodel.CreateStoreAssetComm
 	req.Header.Set("Content-Type", in.ImageType)
 
 	bytes, err := x.HttpSend(req)
-	if err != nil {
+	if err != nil || len(bytes) == 0 {
 		return
 	}
 

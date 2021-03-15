@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	AdvURL       = "https://advertising-api.amazon.com"
+	AdvURL       = "https://advertising-api-test.amazon.com"
 	TokenURL     = "https://api.amazon.com/auth/o2/token"
 	RedirectURI  = "https://da.armos.ai/connect/amazon"
 	ClientID     = "amzn1.application-oa2-client.cb6856e698c74eb480ce7804f428b3dc"
