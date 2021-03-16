@@ -48,7 +48,7 @@ func init() {
 	var redisConfig *sredis.RedisConfig
 	configProvider := config.NewJsonConfigProvider()
 	configProvider.GetStruct("Redis", &redisConfig)
-	tokenStore := core.NewTokenStore("lf", redisConfig)
+	tokenStore := core.NewTokenStore("hh", redisConfig)
 
 	_reportsClient = reports.NewReportsAPI(c, tokenStore)
 	_reportsClient.AdvURL = AdvURL
@@ -56,5 +56,6 @@ func init() {
 
 	_campaignsClient = campaigns.NewCampaignsAPI(c, tokenStore)
 	_campaignsClient.AdvURL = AdvURL
-	_campaignsClient.ProfileID = _profiles["lf"]
+	// _campaignsClient.ProfileID = _profiles["lf"]
+	_campaignsClient.ProfileID = "4204121046005442"
 }

@@ -31,15 +31,15 @@ func TestCreateSPCampaigns(t *testing.T) {
 	in := []*campaignsmodel.SPCampaignDTO{
 		&campaignsmodel.SPCampaignDTO{
 			// ID:                   42441275323797,
-			PortfolioID:          8956684801033,
+			PortfolioID:          254949460323282,
 			Name:                 "test-campaign - Auto",
 			CampaignType:         "sponsoredProducts",
 			TargetingType:        "auto",
 			PremiumBidAdjustment: false,
 			State:                "enabled",
 			DailyBudget:          1.00,
-			StartDate:            "20210131",
-			EndDate:              "",
+			// StartDate:            "20210131",
+			// EndDate:              "",
 			Bidding: &campaignsmodel.BiddingDTO{
 				Strategy: "legacyForSales",
 				Adjustments: []*campaignsmodel.AdjustmentDTO{
