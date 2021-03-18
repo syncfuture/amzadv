@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	_key = "amzadv:CONFIGS"
+	_key = "amzadv:CONFIGS:tokens"
 )
 
 type ITokenStore interface {
