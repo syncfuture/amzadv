@@ -22,8 +22,8 @@ var (
 	_campaignsClient *campaigns.CampaignsAPI
 	_profiles        = map[string]string{
 		"lf": "2022686179132559",
-		"ff": "2418655185698010 ",
-		"hh": "2496076506396355 ",
+		"ff": "2418655185698010",
+		"hh": "2496076506396355",
 	}
 )
 
