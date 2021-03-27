@@ -75,7 +75,7 @@ message SBCampaignDTO  {
     // `json:"servingStatus,omitempty"`
     string ServingStatus       = 13;
     // `json:"creative,omitempty"`
-    BiddingDTO Creative        = 14;
+    CreativeDTO Creative       = 14;
     // `json:"landingPage,omitempty"`
     LandingPageDTO LandingPage = 15;
     // `json:"keywords,omitempty"`
