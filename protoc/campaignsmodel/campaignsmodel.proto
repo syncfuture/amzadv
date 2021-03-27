@@ -79,7 +79,7 @@ message SBCampaignDTO  {
     // `json:"landingPage,omitempty"`
     LandingPageDTO LandingPage = 15;
     // `json:"keywords,omitempty"`
-    KeywordDTO Keywords        = 16;
+    repeated KeywordDTO Keywords = 16;
 }
 message CreativeDTO  {
     //`json:"brandName,omitempty"`
