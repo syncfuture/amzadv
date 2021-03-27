@@ -56,24 +56,30 @@ message SBCampaignDTO  {
     string Name                = 3; 
     // `json:"budget,omitempty"`
     float Budget               = 4; 
-    // `json:"bidOptimization,omitempty"`
-    bool BidOptimization       = 5; 
-    // `json:"adFormat,omitempty"`
-    string AdFormat            = 6; 
     // `json:"budgetType,omitempty"`
-    string BudgetType           = 7; 
+    string BudgetType          = 5; 
     // `json:"startDate,omitempty"`
-    string StartDate           = 8; 
+    string StartDate           = 6; 
     // `json:"endDate,omitempty"`
-    string EndDate             = 9; 
+    string EndDate             = 7; 
+    // `json:"adFormat,omitempty"`
+    string AdFormat            = 8;
     // `json:"state,omitempty"`
-    string State               = 10;
+    string State               = 9;
+    // `json:"brandEntityId,omitempty"`
+    string BrandEntityID       = 10;
+    // `json:"bidOptimization,omitempty"`
+    bool BidOptimization       = 11; 
+    // `json:"bidMultiplier,omitempty"`
+    int64 BidMultiplier        = 12; 
     // `json:"servingStatus,omitempty"`
-    string ServingStatus       = 11;
+    string ServingStatus       = 13;
     // `json:"creative,omitempty"`
-    BiddingDTO Creative        = 12;
+    BiddingDTO Creative        = 14;
     // `json:"landingPage,omitempty"`
-    LandingPageDTO LandingPage = 13;
+    LandingPageDTO LandingPage = 15;
+    // `json:"keywords,omitempty"`
+    KeywordDTO Keywords        = 16;
 }
 message CreativeDTO  {
     //`json:"brandName,omitempty"`
@@ -91,9 +97,11 @@ message CreativeDTO  {
 }
 message LandingPageDTO  {
     //`json:"pageType,omitempty"`
-    string PageType = 1; 
+    string PageType       = 1; 
     //`json:"url,omitempty"`
-	string URL      = 2; 
+	string URL            = 2; 
+    //`json:"asins,omitempty"`
+    repeated string ASINs = 3; 
 }
 
 // ========================================================================================
@@ -168,10 +176,14 @@ message KeywordDTO  {
     string State       = 3; 
     //`json:"keywordText,omitempty"`
     string KeywordText = 4; 
-     //`json:"matchType,omitempty"`
-    string MatchType   = 5;
+    //`json:"nativeLanguageKeyword,omitempty"`
+    string NativeLanguageKeyword = 5; 
+    //`json:"nativeLanguageLocale,omitempty"`
+    string NativeLanguageLocale = 6; 
+    //`json:"matchType,omitempty"`
+    string MatchType   = 7;
     //`json:"bid,omitempty"`
-    float Bid          = 6; 
+    float Bid          = 8; 
 }
 message TargetDTO  {
     //`json:"campaignId,omitempty"`
