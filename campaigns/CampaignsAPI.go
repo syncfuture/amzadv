@@ -74,26 +74,6 @@ func (x *CampaignsAPI) GetSPCampaigns(portfolioID string) (r []*campaignsmodel.S
 	return
 }
 
-func (x *CampaignsAPI) GetSBCampaigns(portfolioID string) (r []*campaignsmodel.SBCampaignDTO, err error) {
-	r = make([]*campaignsmodel.SBCampaignDTO, 0)
-
-	if portfolioID == "" {
-		err = errors.New("Missing PortfolioID")
-		return
-	}
-
-	// Send request
-	bytes, err := x.Send("GET", "/sb/campaigns?&portfolioIdFilter="+portfolioID, nil)
-	if err != nil || len(bytes) == 0 {
-		return
-	}
-
-	// decode
-	err = json.Unmarshal(bytes, &r)
-	u.LogError(err)
-	return
-}
-
 func (x *CampaignsAPI) GetSPCampaignsByName(name string) (r []*campaignsmodel.SPCampaignDTO, err error) {
 	r = make([]*campaignsmodel.SPCampaignDTO, 0)
 
@@ -118,6 +98,46 @@ func (x *CampaignsAPI) CreateSPCampaigns(entries []*campaignsmodel.SPCampaignDTO
 	body, _ := json.Marshal(entries)
 	bytes, err := x.Send("POST", "/v2/sp/campaigns", body)
 	if err != nil {
+		return
+	}
+
+	// decode
+	err = json.Unmarshal(bytes, &r)
+	u.LogError(err)
+	return
+}
+
+func (x *CampaignsAPI) GetSBCampaigns(portfolioID string) (r []*campaignsmodel.SBCampaignDTO, err error) {
+	r = make([]*campaignsmodel.SBCampaignDTO, 0)
+
+	if portfolioID == "" {
+		err = errors.New("Missing PortfolioID")
+		return
+	}
+
+	// Send request
+	bytes, err := x.Send("GET", "/sb/campaigns?&portfolioIdFilter="+portfolioID, nil)
+	if err != nil || len(bytes) == 0 {
+		return
+	}
+
+	// decode
+	err = json.Unmarshal(bytes, &r)
+	u.LogError(err)
+	return
+}
+
+func (x *CampaignsAPI) GetSBCampaignsByName(name string) (r []*campaignsmodel.SBCampaignDTO, err error) {
+	r = make([]*campaignsmodel.SBCampaignDTO, 0)
+
+	if name == "" {
+		err = errors.New("Missing Name")
+		return
+	}
+
+	// Send request
+	bytes, err := x.Send("GET", "/sb/campaigns?&name="+url.QueryEscape(name), nil)
+	if err != nil || len(bytes) == 0 {
 		return
 	}
 
