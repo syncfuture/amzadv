@@ -52,7 +52,7 @@ func (x *CampaignsAPI) GetPortfolios() (r []*core.PortfolioDTO, err error) {
 	return
 }
 
-// #region Campaigns
+// #region SP Campaigns
 
 func (x *CampaignsAPI) GetSPCampaigns(portfolioID string) (r []*campaignsmodel.SPCampaignDTO, err error) {
 	r = make([]*campaignsmodel.SPCampaignDTO, 0)
@@ -98,6 +98,25 @@ func (x *CampaignsAPI) CreateSPCampaigns(entries []*campaignsmodel.SPCampaignDTO
 	body, _ := json.Marshal(entries)
 	bytes, err := x.Send("POST", "/v2/sp/campaigns", body)
 	if err != nil {
+		return
+	}
+
+	// decode
+	err = json.Unmarshal(bytes, &r)
+	u.LogError(err)
+	return
+}
+
+// #endregion
+
+// #region SB Campaigns
+
+func (x *CampaignsAPI) GetAllSBCampaigns() (r []*campaignsmodel.SBCampaignDTO, err error) {
+	r = make([]*campaignsmodel.SBCampaignDTO, 0)
+
+	// Send request
+	bytes, err := x.Send("GET", "/sb/campaigns", nil)
+	if err != nil || len(bytes) == 0 {
 		return
 	}
 
