@@ -54,31 +54,16 @@ func (x *CampaignsAPI) GetPortfolios() (r []*core.PortfolioDTO, err error) {
 
 // #region SP Campaigns
 
-func (x *CampaignsAPI) GetAllSPCampaigns() (r []*campaignsmodel.SPCampaignDTO, err error) {
-	r = make([]*campaignsmodel.SPCampaignDTO, 0)
-
-	// Send request
-	bytes, err := x.Send("GET", "/v2/sp/campaigns", nil)
-	if err != nil || len(bytes) == 0 {
-		return
-	}
-
-	// decode
-	err = json.Unmarshal(bytes, &r)
-	u.LogError(err)
-	return
-}
-
 func (x *CampaignsAPI) GetSPCampaigns(portfolioID string) (r []*campaignsmodel.SPCampaignDTO, err error) {
 	r = make([]*campaignsmodel.SPCampaignDTO, 0)
 
-	if portfolioID == "" {
-		err = errors.New("Missing PortfolioID")
-		return
+	uri := "/v2/sp/campaigns"
+	if portfolioID != "" {
+		uri += "?&portfolioIdFilter=" + portfolioID
 	}
 
 	// Send request
-	bytes, err := x.Send("GET", "/v2/sp/campaigns?&portfolioIdFilter="+portfolioID, nil)
+	bytes, err := x.Send("GET", uri, nil)
 	if err != nil || len(bytes) == 0 {
 		return
 	}
@@ -126,31 +111,16 @@ func (x *CampaignsAPI) CreateSPCampaigns(entries []*campaignsmodel.SPCampaignDTO
 
 // #region SB Campaigns
 
-func (x *CampaignsAPI) GetAllSBCampaigns() (r []*campaignsmodel.SBCampaignDTO, err error) {
-	r = make([]*campaignsmodel.SBCampaignDTO, 0)
-
-	// Send request
-	bytes, err := x.Send("GET", "/sb/campaigns", nil)
-	if err != nil || len(bytes) == 0 {
-		return
-	}
-
-	// decode
-	err = json.Unmarshal(bytes, &r)
-	u.LogError(err)
-	return
-}
-
 func (x *CampaignsAPI) GetSBCampaigns(portfolioID string) (r []*campaignsmodel.SBCampaignDTO, err error) {
 	r = make([]*campaignsmodel.SBCampaignDTO, 0)
 
-	if portfolioID == "" {
-		err = errors.New("Missing PortfolioID")
-		return
+	uri := "/sb/campaigns"
+	if portfolioID != "" {
+		uri += "?&portfolioIdFilter=" + portfolioID
 	}
 
 	// Send request
-	bytes, err := x.Send("GET", "/sb/campaigns?&portfolioIdFilter="+portfolioID, nil)
+	bytes, err := x.Send("GET", uri, nil)
 	if err != nil || len(bytes) == 0 {
 		return
 	}
