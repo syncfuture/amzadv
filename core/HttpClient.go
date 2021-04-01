@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/syncfuture/go/serr"
 	"github.com/syncfuture/go/u"
 	"golang.org/x/oauth2"
 )
@@ -39,7 +40,7 @@ func (x *APIClient) NewHttpRequest(action string, url string, body []byte) (r *h
 
 	// init request
 	r, err := http.NewRequest(action, url, bytes.NewBuffer(body))
-	if err != nil {
+	if u.LogError(serr.WithStack(err)) {
 		return
 	}
 
@@ -66,12 +67,12 @@ func (x *APIClient) HttpSend(req *http.Request) (r []byte, err error) {
 
 	// send request
 	resp, err := client.Do(req)
-	if u.LogError(err) {
+	if u.LogError(serr.WithStack(err)) {
 		return
 	}
 	defer resp.Body.Close()
 
 	r, err = ioutil.ReadAll(resp.Body)
-	u.LogError(err)
+	u.LogError(serr.WithStack(err))
 	return
 }
