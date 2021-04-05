@@ -371,6 +371,19 @@ func (x *CampaignsAPI) CreateSPKeywords(entries []*campaignsmodel.KeywordDTO) (r
 	return
 }
 
+func (x *CampaignsAPI) CreateSBKeywords(entries []*campaignsmodel.KeywordDTO) (r []*campaignsmodel.ResponseDTO, err error) {
+	body, _ := json.Marshal(entries)
+	bytes, err := x.Send("POST", "/sb/keywords", body)
+	if err != nil || len(bytes) == 0 {
+		return
+	}
+
+	// decode
+	err = json.Unmarshal(bytes, &r)
+	u.LogError(err)
+	return
+}
+
 func (x *CampaignsAPI) UpdateSBKeywords(entries []*campaignsmodel.KeywordDTO) (r []*campaignsmodel.ResponseDTO, err error) {
 	body, _ := json.Marshal(entries)
 	bytes, err := x.Send("PUT", "/sb/keywords", body)

@@ -172,18 +172,20 @@ message KeywordDTO  {
     int64 CampaignID   = 1; 
     //`json:"adGroupId,omitempty"`
     int64 AdGroupID    = 2; 
+    //`json:"keywordId,omitempty"`
+    int64 KeywordID    = 3; 
     //`json:"state,omitempty"`
-    string State       = 3; 
+    string State       = 4; 
     //`json:"keywordText,omitempty"`
-    string KeywordText = 4; 
+    string KeywordText = 5; 
     //`json:"nativeLanguageKeyword,omitempty"`
-    string NativeLanguageKeyword = 5; 
+    string NativeLanguageKeyword = 6; 
     //`json:"nativeLanguageLocale,omitempty"`
-    string NativeLanguageLocale = 6; 
+    string NativeLanguageLocale = 7; 
     //`json:"matchType,omitempty"`
-    string MatchType   = 7;
+    string MatchType   = 8;
     //`json:"bid,omitempty"`
-    float Bid          = 8; 
+    float Bid          = 9; 
 }
 message TargetDTO  {
     //`json:"campaignId,omitempty"`
