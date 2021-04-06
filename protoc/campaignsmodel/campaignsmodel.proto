@@ -152,6 +152,8 @@ message AdGroupDTO  {
     string State     = 4; 
     //`json:"defaultBid,omitempty"`
 	float DefaultBid = 5; 
+      //`json:"bid,omitempty"`
+	float Bid = 6; 
 }
 message ProductAdDTO  {
     //`json:"adId,omitempty"`

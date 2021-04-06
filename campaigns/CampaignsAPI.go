@@ -241,6 +241,26 @@ func (x *CampaignsAPI) CreateSPAdGroups(entries []*campaignsmodel.AdGroupDTO) (r
 	return
 }
 
+func (x *CampaignsAPI) GetSBAdGroups(campaignId string) (r []*campaignsmodel.AdGroupDTO, err error) {
+	r = make([]*campaignsmodel.AdGroupDTO, 0)
+
+	if campaignId == "" {
+		err = errors.New("Missing campaignId")
+		return
+	}
+
+	// Send request
+	bytes, err := x.Send("GET", "/sb/adGroups?campaignIdFilter="+campaignId, nil)
+	if err != nil || len(bytes) == 0 {
+		return
+	}
+
+	// decode
+	err = json.Unmarshal(bytes, &r)
+	u.LogError(err)
+	return
+}
+
 // #endregion
 
 // #region Product Ads
