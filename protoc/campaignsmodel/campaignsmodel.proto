@@ -8,29 +8,28 @@ option go_package = "github.com/syncfuture/amzadv/protoc/campaignsmodel";
 // SP Campaigns
 
 message SPCampaignDTO  {
-    string ID                 = 1; 
     // `json:"campaignId,omitempty"`
-    int64 CampaignID          = 2; 
+    int64 ID                  = 1; 
     // `json:"portfolioId,omitempty"`
-    int64 PortfolioID         = 3; 
+    int64 PortfolioID         = 2; 
     // `json:"name,omitempty"`
-    string Name               = 4; 
+    string Name               = 3; 
     // `json:"campaignType,omitempty"`
-    string CampaignType       = 5; 
+    string CampaignType       = 4; 
     // `json:"targetingType,omitempty"`
-    string TargetingType      = 6; 
+    string TargetingType      = 5; 
     // `json:"premiumBidAdjustment,omitempty"`
-    bool PremiumBidAdjustment = 7; 
+    bool PremiumBidAdjustment = 6; 
     // `json:"dailyBudget,omitempty"`
-    float DailyBudget         = 8; 
+    float DailyBudget         = 7; 
     // `json:"startDate,omitempty"`
-    string StartDate          = 9; 
+    string StartDate          = 8; 
     // `json:"endDate,omitempty"`
-    string EndDate            = 10; 
+    string EndDate            = 9; 
     // `json:"state,omitempty"`
-    string State              = 11;
+    string State              = 10;
     // `json:"bidding,omitempty"`
-    BiddingDTO Bidding        = 12;
+    BiddingDTO Bidding        = 11;
 }
 message BiddingDTO  {
     // `json:"strategy,omitempty"`
@@ -49,39 +48,38 @@ message AdjustmentDTO  {
 // SB Campaigns
 
 message SBCampaignDTO  {
-    string ID                  = 1; 
     // `json:"campaignId,omitempty"`
-    int64 CampaignID           = 2; 
+    int64 ID                   = 1; 
     // `json:"portfolioId,omitempty"`
-    int64 PortfolioID          = 3; 
+    int64 PortfolioID          = 2; 
     // `json:"name,omitempty"`
-    string Name                = 4; 
+    string Name                = 3; 
     // `json:"budget,omitempty"`
-    float Budget               = 5; 
+    float Budget               = 4; 
     // `json:"budgetType,omitempty"`
-    string BudgetType          = 6; 
+    string BudgetType          = 5; 
     // `json:"startDate,omitempty"`
-    string StartDate           = 7; 
+    string StartDate           = 6; 
     // `json:"endDate,omitempty"`
-    string EndDate             = 8; 
+    string EndDate             = 7; 
     // `json:"adFormat,omitempty"`
-    string AdFormat            = 9;
+    string AdFormat            = 8;
     // `json:"state,omitempty"`
-    string State               = 10;
+    string State               = 9;
     // `json:"brandEntityId,omitempty"`
-    string BrandEntityID       = 11;
+    string BrandEntityID       = 10;
     // `json:"bidOptimization,omitempty"`
-    bool BidOptimization       = 12; 
+    bool BidOptimization       = 11; 
     // `json:"bidMultiplier,omitempty"`
-    int64 BidMultiplier        = 13; 
+    int64 BidMultiplier        = 12; 
     // `json:"servingStatus,omitempty"`
-    string ServingStatus       = 14;
+    string ServingStatus       = 13;
     // `json:"creative,omitempty"`
-    CreativeDTO Creative       = 15;
+    CreativeDTO Creative       = 14;
     // `json:"landingPage,omitempty"`
-    LandingPageDTO LandingPage = 16;
+    LandingPageDTO LandingPage = 15;
     // `json:"keywords,omitempty"`
-    repeated KeywordDTO Keywords = 17;
+    repeated KeywordDTO Keywords = 16;
 }
 message CreativeDTO  {
     //`json:"brandName,omitempty"`
