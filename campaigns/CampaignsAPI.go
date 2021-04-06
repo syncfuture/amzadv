@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"net/url"
+	"strconv"
 
 	"github.com/syncfuture/amzadv/core"
 	"github.com/syncfuture/amzadv/protoc/campaignsmodel"
@@ -70,7 +71,14 @@ func (x *CampaignsAPI) GetSPCampaigns(portfolioID string) (r []*campaignsmodel.S
 
 	// decode
 	err = json.Unmarshal(bytes, &r)
-	u.LogError(err)
+	if u.LogError(err) {
+		return
+	}
+
+	// convert id
+	for _, item := range r {
+		item.ID = strconv.FormatInt(item.CampaignID, 10)
+	}
 	return
 }
 
@@ -127,7 +135,14 @@ func (x *CampaignsAPI) GetSBCampaigns(portfolioID string) (r []*campaignsmodel.S
 
 	// decode
 	err = json.Unmarshal(bytes, &r)
-	u.LogError(err)
+	if u.LogError(err) {
+		return
+	}
+
+	// convert id
+	for _, item := range r {
+		item.ID = strconv.FormatInt(item.CampaignID, 64)
+	}
 	return
 }
 
