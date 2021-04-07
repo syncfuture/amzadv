@@ -426,8 +426,8 @@ func (m *SBCampaignDTO) GetKeywords() []*KeywordDTO {
 type CreativeDTO struct {
 	//`json:"brandName,omitempty"`
 	BrandName string `protobuf:"bytes,1,opt,name=BrandName,proto3" json:"brandName,omitempty"`
-	//`json:"brandLogoAssetId,omitempty"`
-	BrandLogoAssetID string `protobuf:"bytes,2,opt,name=BrandLogoAssetID,proto3" json:"brandLogoAssetId,omitempty"`
+	//`json:"brandLogoAssetID,omitempty"`
+	BrandLogoAssetID string `protobuf:"bytes,2,opt,name=BrandLogoAssetID,proto3" json:"brandLogoAssetID,omitempty"`
 	//`json:"headline,omitempty"`
 	Headline string `protobuf:"bytes,3,opt,name=Headline,proto3" json:"headline,omitempty"`
 	//`json:"shouldOptimizeAsins,omitempty"`

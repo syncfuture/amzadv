@@ -84,7 +84,7 @@ message SBCampaignDTO  {
 message CreativeDTO  {
     //`json:"brandName,omitempty"`
     string BrandName         = 1; 
-    //`json:"brandLogoAssetId,omitempty"`
+    //`json:"brandLogoAssetID,omitempty"`
     string BrandLogoAssetID  = 2; 
     //`json:"headline,omitempty"`
     string Headline          = 3; 
