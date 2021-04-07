@@ -95,7 +95,12 @@ func (x *CampaignsAPI) GetSPCampaignsByName(name string) (r []*campaignsmodel.SP
 }
 
 func (x *CampaignsAPI) CreateSPCampaigns(entries []*campaignsmodel.SPCampaignDTO) (r []*campaignsmodel.ResponseDTO, err error) {
-	body, _ := json.Marshal(entries)
+	newEntries := make([]*campaignsmodel.AmazonSPCampaignDTO, 0, len(entries))
+	for _, v := range entries {
+		newEntries = append(newEntries, v.ToAmazonSPCampaignDTO())
+	}
+
+	body, _ := json.Marshal(newEntries)
 	bytes, err := x.Send("POST", "/v2/sp/campaigns", body)
 	if err != nil {
 		return
@@ -152,7 +157,12 @@ func (x *CampaignsAPI) GetSBCampaignsByName(name string) (r []*campaignsmodel.SB
 }
 
 func (x *CampaignsAPI) CreateSBCampaigns(entries []*campaignsmodel.SBCampaignDTO) (r []*campaignsmodel.ResponseDTO, err error) {
-	body, _ := json.Marshal(entries)
+	newEntries := make([]*campaignsmodel.AmazonSBCampaignDTO, 0, len(entries))
+	for _, v := range entries {
+		newEntries = append(newEntries, v.ToAmazonSBCampaignDTO())
+	}
+
+	body, _ := json.Marshal(newEntries)
 	bytes, err := x.Send("POST", "/sb/campaigns", body)
 	if err != nil || len(bytes) == 0 {
 		return
@@ -229,7 +239,12 @@ func (x *CampaignsAPI) GetSPAdGroupsBid(adGroupId string) (r *campaignsmodel.Bid
 }
 
 func (x *CampaignsAPI) CreateSPAdGroups(entries []*campaignsmodel.AdGroupDTO) (r []*campaignsmodel.ResponseDTO, err error) {
-	body, _ := json.Marshal(entries)
+	newEntries := make([]*campaignsmodel.AmazonAdGroupDTO, 0, len(entries))
+	for _, v := range entries {
+		newEntries = append(newEntries, v.ToAmazonAdGroupDTO())
+	}
+
+	body, _ := json.Marshal(newEntries)
 	bytes, err := x.Send("POST", "/v2/sp/adGroups", body)
 	if err != nil || len(bytes) == 0 {
 		return
@@ -291,7 +306,12 @@ func (x *CampaignsAPI) GetSPProductAds(adGroupId string, state string) (r []*cam
 }
 
 func (x *CampaignsAPI) CreateSPProductAds(entries []*campaignsmodel.ProductAdDTO) (r []*campaignsmodel.ResponseDTO, err error) {
-	body, _ := json.Marshal(entries)
+	newEntries := make([]*campaignsmodel.AmazonProductAdDTO, 0, len(entries))
+	for _, v := range entries {
+		newEntries = append(newEntries, v.ToAmazonProductAdDTO())
+	}
+
+	body, _ := json.Marshal(newEntries)
 	bytes, err := x.Send("POST", "/v2/sp/productAds", body)
 	if err != nil || len(bytes) == 0 {
 		return
@@ -304,7 +324,12 @@ func (x *CampaignsAPI) CreateSPProductAds(entries []*campaignsmodel.ProductAdDTO
 }
 
 func (x *CampaignsAPI) UpdateSPProductAds(entries []*campaignsmodel.ProductAdDTO) (r []*campaignsmodel.ResponseDTO, err error) {
-	body, _ := json.Marshal(entries)
+	newEntries := make([]*campaignsmodel.AmazonProductAdDTO, 0, len(entries))
+	for _, v := range entries {
+		newEntries = append(newEntries, v.ToAmazonProductAdDTO())
+	}
+
+	body, _ := json.Marshal(newEntries)
 	bytes, err := x.Send("PUT", "/v2/sp/productAds", body)
 	if err != nil || len(bytes) == 0 {
 		return
@@ -362,7 +387,12 @@ func (x *CampaignsAPI) GetSPTargetsBids(in *TargetsBidsQuery) (r *campaignsmodel
 }
 
 func (x *CampaignsAPI) UpdateSPTargets(entries []*campaignsmodel.TargetDTO) (r []*campaignsmodel.ResponseDTO, err error) {
-	body, _ := json.Marshal(entries)
+	newEntries := make([]*campaignsmodel.AmazonTargetDTO, 0, len(entries))
+	for _, v := range entries {
+		newEntries = append(newEntries, v.ToAmazonTargetDTO())
+	}
+
+	body, _ := json.Marshal(newEntries)
 	bytes, err := x.Send("PUT", "/v2/sp/targets", body)
 	if err != nil || len(bytes) == 0 {
 		return
@@ -392,7 +422,12 @@ func (x *CampaignsAPI) CreateSPKeywords(entries []*campaignsmodel.KeywordDTO) (r
 }
 
 func (x *CampaignsAPI) CreateSBKeywords(entries []*campaignsmodel.KeywordDTO) (r []*campaignsmodel.ResponseDTO, err error) {
-	body, _ := json.Marshal(entries)
+	newEntries := make([]*campaignsmodel.AmazonKeywordDTO, 0, len(entries))
+	for _, v := range entries {
+		newEntries = append(newEntries, v.ToAmazonKeywordDTO())
+	}
+
+	body, _ := json.Marshal(newEntries)
 	bytes, err := x.Send("POST", "/sb/keywords", body)
 	if err != nil || len(bytes) == 0 {
 		return
@@ -405,7 +440,12 @@ func (x *CampaignsAPI) CreateSBKeywords(entries []*campaignsmodel.KeywordDTO) (r
 }
 
 func (x *CampaignsAPI) UpdateSBKeywords(entries []*campaignsmodel.KeywordDTO) (r []*campaignsmodel.ResponseDTO, err error) {
-	body, _ := json.Marshal(entries)
+	newEntries := make([]*campaignsmodel.AmazonKeywordDTO, 0, len(entries))
+	for _, v := range entries {
+		newEntries = append(newEntries, v.ToAmazonKeywordDTO())
+	}
+
+	body, _ := json.Marshal(newEntries)
 	bytes, err := x.Send("PUT", "/sb/keywords", body)
 	if err != nil || len(bytes) == 0 {
 		return

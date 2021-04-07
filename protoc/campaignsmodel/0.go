@@ -9,8 +9,16 @@ import (
 
 // #region SPCampaignDTO
 
-func (t *SPCampaignDTO) MarshalJSON() ([]byte, error) {
-	type ourDTOType SPCampaignDTO // create new type with same structure as T but without its method set!
+type AmazonSPCampaignDTO struct {
+	SPCampaignDTO
+}
+
+func (x *SPCampaignDTO) ToAmazonSPCampaignDTO() *AmazonSPCampaignDTO {
+	return &AmazonSPCampaignDTO{SPCampaignDTO: (*x)}
+}
+
+func (t *AmazonSPCampaignDTO) MarshalJSON() ([]byte, error) {
+	type ourDTOType AmazonSPCampaignDTO // create new type with same structure as T but without its method set!
 	type amazonDTOType struct {
 		ourDTOType        // embed
 		ID          int64 `protobuf:"varint,1,opt,name=ID,proto3" json:"campaignId,omitempty"`
@@ -50,8 +58,16 @@ func (t *SPCampaignDTO) UnmarshalJSON(d []byte) error {
 
 // #region SBCampaignDTO
 
-func (t *SBCampaignDTO) MarshalJSON() ([]byte, error) {
-	type T2 SBCampaignDTO // create new type with same structure as T but without its method set!
+type AmazonSBCampaignDTO struct {
+	SBCampaignDTO
+}
+
+func (x *SBCampaignDTO) ToAmazonSBCampaignDTO() *AmazonSBCampaignDTO {
+	return &AmazonSBCampaignDTO{SBCampaignDTO: (*x)}
+}
+
+func (t *AmazonSBCampaignDTO) MarshalJSON() ([]byte, error) {
+	type T2 AmazonSBCampaignDTO // create new type with same structure as T but without its method set!
 	type newT struct {
 		T2                // embed
 		ID          int64 `protobuf:"varint,1,opt,name=ID,proto3" json:"campaignId,omitempty"`
@@ -87,8 +103,16 @@ func (t *SBCampaignDTO) UnmarshalJSON(d []byte) error {
 
 // #region BidRecommendationsDTO
 
-func (t *BidRecommendationsDTO) MarshalJSON() ([]byte, error) {
-	type T2 BidRecommendationsDTO // create new type with same structure as T but without its method set!
+type AmazonBidRecommendationsDTO struct {
+	BidRecommendationsDTO
+}
+
+func (x *BidRecommendationsDTO) ToAmazonBidRecommendationsDTO() *AmazonBidRecommendationsDTO {
+	return &AmazonBidRecommendationsDTO{BidRecommendationsDTO: (*x)}
+}
+
+func (t *AmazonBidRecommendationsDTO) MarshalJSON() ([]byte, error) {
+	type T2 AmazonBidRecommendationsDTO // create new type with same structure as T but without its method set!
 	type newT struct {
 		T2              // embed
 		AdGroupID int64 `protobuf:"varint,1,opt,name=AdGroupID,proto3" json:"adGroupId,omitempty"`
@@ -120,8 +144,16 @@ func (t *BidRecommendationsDTO) UnmarshalJSON(d []byte) error {
 
 // #region AdGroupDTO
 
-func (t *AdGroupDTO) MarshalJSON() ([]byte, error) {
-	type T2 AdGroupDTO // create new type with same structure as T but without its method set!
+type AmazonAdGroupDTO struct {
+	AdGroupDTO
+}
+
+func (x *AdGroupDTO) ToAmazonAdGroupDTO() *AmazonAdGroupDTO {
+	return &AmazonAdGroupDTO{AdGroupDTO: (*x)}
+}
+
+func (t *AmazonAdGroupDTO) MarshalJSON() ([]byte, error) {
+	type T2 AmazonAdGroupDTO // create new type with same structure as T but without its method set!
 	type newT struct {
 		T2               // embed
 		ID         int64 `protobuf:"varint,1,opt,name=ID,proto3" json:"adGroupId,omitempty"`
@@ -157,8 +189,16 @@ func (t *AdGroupDTO) UnmarshalJSON(d []byte) error {
 
 // #region ProductAdDTO
 
-func (t *ProductAdDTO) MarshalJSON() ([]byte, error) {
-	type T2 ProductAdDTO // create new type with same structure as T but without its method set!
+type AmazonProductAdDTO struct {
+	ProductAdDTO
+}
+
+func (x *ProductAdDTO) ToAmazonProductAdDTO() *AmazonProductAdDTO {
+	return &AmazonProductAdDTO{ProductAdDTO: (*x)}
+}
+
+func (t *AmazonProductAdDTO) MarshalJSON() ([]byte, error) {
+	type T2 AmazonProductAdDTO // create new type with same structure as T but without its method set!
 	type newT struct {
 		T2               // embed
 		AdID       int64 `protobuf:"varint,1,opt,name=AdID,proto3" json:"adId,omitempty"`
@@ -198,8 +238,16 @@ func (t *ProductAdDTO) UnmarshalJSON(d []byte) error {
 
 // #region KeywordDTO
 
-func (t *KeywordDTO) MarshalJSON() ([]byte, error) {
-	type T2 KeywordDTO // create new type with same structure as T but without its method set!
+type AmazonKeywordDTO struct {
+	KeywordDTO
+}
+
+func (x *KeywordDTO) ToAmazonKeywordDTO() *AmazonKeywordDTO {
+	return &AmazonKeywordDTO{KeywordDTO: (*x)}
+}
+
+func (t *AmazonKeywordDTO) MarshalJSON() ([]byte, error) {
+	type T2 AmazonKeywordDTO // create new type with same structure as T but without its method set!
 	type newT struct {
 		T2               // embed
 		CampaignID int64 `protobuf:"varint,1,opt,name=CampaignID,proto3" json:"campaignId,omitempty"`
@@ -239,8 +287,16 @@ func (t *KeywordDTO) UnmarshalJSON(d []byte) error {
 
 // #region TargetDTO
 
-func (t *TargetDTO) MarshalJSON() ([]byte, error) {
-	type T2 TargetDTO // create new type with same structure as T but without its method set!
+type AmazonTargetDTO struct {
+	TargetDTO
+}
+
+func (x *TargetDTO) ToAmazonTargetDTO() *AmazonTargetDTO {
+	return &AmazonTargetDTO{TargetDTO: (*x)}
+}
+
+func (t *AmazonTargetDTO) MarshalJSON() ([]byte, error) {
+	type T2 AmazonTargetDTO // create new type with same structure as T but without its method set!
 	type newT struct {
 		T2               // embed
 		CampaignID int64 `protobuf:"varint,1,opt,name=CampaignID,proto3" json:"campaignId,omitempty"`
@@ -280,8 +336,16 @@ func (t *TargetDTO) UnmarshalJSON(d []byte) error {
 
 // #region ResponseDTO
 
-func (t *ResponseDTO) MarshalJSON() ([]byte, error) {
-	type T2 ResponseDTO // create new type with same structure as T but without its method set!
+type AmazonResponseDTO struct {
+	ResponseDTO
+}
+
+func (x *ResponseDTO) ToAmazonTargetDTO() *AmazonResponseDTO {
+	return &AmazonResponseDTO{ResponseDTO: (*x)}
+}
+
+func (t *AmazonResponseDTO) MarshalJSON() ([]byte, error) {
+	type T2 AmazonResponseDTO // create new type with same structure as T but without its method set!
 	type newT struct {
 		T2               // embed
 		CampaignID int64 `protobuf:"varint,1,opt,name=CampaignID,proto3" json:"campaignId,omitempty"`
