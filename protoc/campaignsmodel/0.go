@@ -35,8 +35,12 @@ func (t *AmazonSPCampaignDTO) MarshalJSON() ([]byte, error) {
 	return json.Marshal(amazonDTO)
 }
 
-func (t *SPCampaignDTO) UnmarshalJSON(d []byte) error {
-	type T2 SPCampaignDTO // create new type with same structure as T but without its method set!
+func (x *AmazonSPCampaignDTO) ToSPCampaignDTO() *SPCampaignDTO {
+	return &x.SPCampaignDTO
+}
+
+func (t *AmazonSPCampaignDTO) UnmarshalJSON(d []byte) error {
+	type T2 AmazonSPCampaignDTO // create new type with same structure as T but without its method set!
 	x := struct {
 		T2                // embed
 		ID          int64 `protobuf:"varint,1,opt,name=ID,proto3" json:"campaignId,omitempty"`
@@ -48,7 +52,7 @@ func (t *SPCampaignDTO) UnmarshalJSON(d []byte) error {
 		return serr.WithStack(err)
 	}
 
-	*t = SPCampaignDTO(x.T2)
+	*t = AmazonSPCampaignDTO(x.T2)
 	t.ID = sconv.ToString(x.ID)
 	t.PortfolioID = sconv.ToString(x.PortfolioID)
 	return nil
@@ -80,8 +84,12 @@ func (t *AmazonSBCampaignDTO) MarshalJSON() ([]byte, error) {
 	return json.Marshal(rs)
 }
 
-func (t *SBCampaignDTO) UnmarshalJSON(d []byte) error {
-	type T2 SBCampaignDTO // create new type with same structure as T but without its method set!
+func (x *AmazonSBCampaignDTO) ToSBCampaignDTO() *SBCampaignDTO {
+	return &x.SBCampaignDTO
+}
+
+func (t *AmazonSBCampaignDTO) UnmarshalJSON(d []byte) error {
+	type T2 AmazonSBCampaignDTO // create new type with same structure as T but without its method set!
 	newT := struct {
 		T2                // embed
 		ID          int64 `protobuf:"varint,1,opt,name=ID,proto3" json:"campaignId,omitempty"`
@@ -93,7 +101,7 @@ func (t *SBCampaignDTO) UnmarshalJSON(d []byte) error {
 		return serr.WithStack(err)
 	}
 
-	*t = SBCampaignDTO(newT.T2)
+	*t = AmazonSBCampaignDTO(newT.T2)
 	t.ID = sconv.ToString(newT.ID)
 	t.PortfolioID = sconv.ToString(newT.PortfolioID)
 	return nil
@@ -123,8 +131,12 @@ func (t *AmazonBidRecommendationsDTO) MarshalJSON() ([]byte, error) {
 	return json.Marshal(rs)
 }
 
-func (t *BidRecommendationsDTO) UnmarshalJSON(d []byte) error {
-	type T2 BidRecommendationsDTO // create new type with same structure as T but without its method set!
+func (x *AmazonBidRecommendationsDTO) ToBidRecommendationsDTO() *BidRecommendationsDTO {
+	return &x.BidRecommendationsDTO
+}
+
+func (t *AmazonBidRecommendationsDTO) UnmarshalJSON(d []byte) error {
+	type T2 AmazonBidRecommendationsDTO // create new type with same structure as T but without its method set!
 	newT := struct {
 		T2              // embed
 		AdGroupID int64 `protobuf:"varint,1,opt,name=AdGroupID,proto3" json:"adGroupId,omitempty"`
@@ -135,7 +147,7 @@ func (t *BidRecommendationsDTO) UnmarshalJSON(d []byte) error {
 		return serr.WithStack(err)
 	}
 
-	*t = BidRecommendationsDTO(newT.T2)
+	*t = AmazonBidRecommendationsDTO(newT.T2)
 	t.AdGroupID = sconv.ToString(newT.AdGroupID)
 	return nil
 }
@@ -166,8 +178,12 @@ func (t *AmazonAdGroupDTO) MarshalJSON() ([]byte, error) {
 	return json.Marshal(rs)
 }
 
-func (t *AdGroupDTO) UnmarshalJSON(d []byte) error {
-	type T2 AdGroupDTO // create new type with same structure as T but without its method set!
+func (x *AmazonAdGroupDTO) ToAdGroupDTO() *AdGroupDTO {
+	return &x.AdGroupDTO
+}
+
+func (t *AmazonAdGroupDTO) UnmarshalJSON(d []byte) error {
+	type T2 AmazonAdGroupDTO // create new type with same structure as T but without its method set!
 	newT := struct {
 		T2               // embed
 		ID         int64 `protobuf:"varint,1,opt,name=ID,proto3" json:"adGroupId,omitempty"`
@@ -179,7 +195,7 @@ func (t *AdGroupDTO) UnmarshalJSON(d []byte) error {
 		return serr.WithStack(err)
 	}
 
-	*t = AdGroupDTO(newT.T2)
+	*t = AmazonAdGroupDTO(newT.T2)
 	t.ID = sconv.ToString(newT.ID)
 	t.CampaignID = sconv.ToString(newT.CampaignID)
 	return nil
@@ -213,8 +229,12 @@ func (t *AmazonProductAdDTO) MarshalJSON() ([]byte, error) {
 	return json.Marshal(rs)
 }
 
-func (t *ProductAdDTO) UnmarshalJSON(d []byte) error {
-	type T2 ProductAdDTO // create new type with same structure as T but without its method set!
+func (x *AmazonProductAdDTO) ToProductAdDTO() *ProductAdDTO {
+	return &x.ProductAdDTO
+}
+
+func (t *AmazonProductAdDTO) UnmarshalJSON(d []byte) error {
+	type T2 AmazonProductAdDTO // create new type with same structure as T but without its method set!
 	newT := struct {
 		T2               // embed
 		AdID       int64 `protobuf:"varint,1,opt,name=AdID,proto3" json:"adId,omitempty"`
@@ -227,7 +247,7 @@ func (t *ProductAdDTO) UnmarshalJSON(d []byte) error {
 		return serr.WithStack(err)
 	}
 
-	*t = ProductAdDTO(newT.T2)
+	*t = AmazonProductAdDTO(newT.T2)
 	t.AdID = sconv.ToString(newT.AdID)
 	t.AdGroupID = sconv.ToString(newT.AdGroupID)
 	t.CampaignID = sconv.ToString(newT.CampaignID)
@@ -262,8 +282,12 @@ func (t *AmazonKeywordDTO) MarshalJSON() ([]byte, error) {
 	return json.Marshal(rs)
 }
 
-func (t *KeywordDTO) UnmarshalJSON(d []byte) error {
-	type T2 KeywordDTO // create new type with same structure as T but without its method set!
+func (x *AmazonKeywordDTO) ToKeywordDTO() *KeywordDTO {
+	return &x.KeywordDTO
+}
+
+func (t *AmazonKeywordDTO) UnmarshalJSON(d []byte) error {
+	type T2 AmazonKeywordDTO // create new type with same structure as T but without its method set!
 	newT := struct {
 		T2               // embed
 		CampaignID int64 `protobuf:"varint,1,opt,name=CampaignID,proto3" json:"campaignId,omitempty"`
@@ -276,7 +300,7 @@ func (t *KeywordDTO) UnmarshalJSON(d []byte) error {
 		return serr.WithStack(err)
 	}
 
-	*t = KeywordDTO(newT.T2)
+	*t = AmazonKeywordDTO(newT.T2)
 	t.CampaignID = sconv.ToString(newT.CampaignID)
 	t.AdGroupID = sconv.ToString(newT.AdGroupID)
 	t.KeywordID = sconv.ToString(newT.KeywordID)
@@ -311,8 +335,12 @@ func (t *AmazonTargetDTO) MarshalJSON() ([]byte, error) {
 	return json.Marshal(rs)
 }
 
-func (t *TargetDTO) UnmarshalJSON(d []byte) error {
-	type T2 TargetDTO // create new type with same structure as T but without its method set!
+func (x *AmazonTargetDTO) ToTargetDTO() *TargetDTO {
+	return &x.TargetDTO
+}
+
+func (t *AmazonTargetDTO) UnmarshalJSON(d []byte) error {
+	type T2 AmazonTargetDTO // create new type with same structure as T but without its method set!
 	newT := struct {
 		T2               // embed
 		CampaignID int64 `protobuf:"varint,1,opt,name=CampaignID,proto3" json:"campaignId,omitempty"`
@@ -325,7 +353,7 @@ func (t *TargetDTO) UnmarshalJSON(d []byte) error {
 		return serr.WithStack(err)
 	}
 
-	*t = TargetDTO(newT.T2)
+	*t = AmazonTargetDTO(newT.T2)
 	t.CampaignID = sconv.ToString(newT.CampaignID)
 	t.AdGroupID = sconv.ToString(newT.AdGroupID)
 	t.TargetID = sconv.ToString(newT.TargetID)
@@ -358,8 +386,12 @@ func (t *AmazonResponseDTO) MarshalJSON() ([]byte, error) {
 	return json.Marshal(rs)
 }
 
-func (t *ResponseDTO) UnmarshalJSON(d []byte) error {
-	type T2 ResponseDTO // create new type with same structure as T but without its method set!
+func (x *AmazonResponseDTO) ToResponseDTO() *ResponseDTO {
+	return &x.ResponseDTO
+}
+
+func (t *AmazonResponseDTO) UnmarshalJSON(d []byte) error {
+	type T2 AmazonResponseDTO // create new type with same structure as T but without its method set!
 	newT := struct {
 		T2               // embed
 		CampaignID int64 `protobuf:"varint,1,opt,name=CampaignID,proto3" json:"campaignId,omitempty"`
@@ -371,7 +403,7 @@ func (t *ResponseDTO) UnmarshalJSON(d []byte) error {
 		return serr.WithStack(err)
 	}
 
-	*t = ResponseDTO(newT.T2)
+	*t = AmazonResponseDTO(newT.T2)
 	t.CampaignID = sconv.ToString(newT.CampaignID)
 	t.AdGroupID = sconv.ToString(newT.AdGroupID)
 	return nil

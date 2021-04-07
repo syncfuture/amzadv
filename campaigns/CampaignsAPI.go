@@ -69,8 +69,15 @@ func (x *CampaignsAPI) GetSPCampaigns(portfolioID string) (r []*campaignsmodel.S
 	}
 
 	// decode
-	err = json.Unmarshal(bytes, &r)
-	u.LogError(err)
+	t := make([]*campaignsmodel.AmazonSPCampaignDTO, 0)
+	err = json.Unmarshal(bytes, &t)
+	if u.LogError(err) {
+		return
+	}
+
+	for _, v := range t {
+		r = append(r, v.ToSPCampaignDTO())
+	}
 	return
 }
 
@@ -89,8 +96,15 @@ func (x *CampaignsAPI) GetSPCampaignsByName(name string) (r []*campaignsmodel.SP
 	}
 
 	// decode
-	err = json.Unmarshal(bytes, &r)
-	u.LogError(err)
+	t := make([]*campaignsmodel.AmazonSPCampaignDTO, 0)
+	err = json.Unmarshal(bytes, &t)
+	if u.LogError(err) {
+		return
+	}
+
+	for _, v := range t {
+		r = append(r, v.ToSPCampaignDTO())
+	}
 	return
 }
 
@@ -107,8 +121,15 @@ func (x *CampaignsAPI) CreateSPCampaigns(entries []*campaignsmodel.SPCampaignDTO
 	}
 
 	// decode
-	err = json.Unmarshal(bytes, &r)
-	u.LogError(err)
+	t := make([]*campaignsmodel.AmazonResponseDTO, 0)
+	err = json.Unmarshal(bytes, &t)
+	if u.LogError(err) {
+		return
+	}
+
+	for _, v := range t {
+		r = append(r, v.ToResponseDTO())
+	}
 	return
 }
 
@@ -131,8 +152,15 @@ func (x *CampaignsAPI) GetSBCampaigns(portfolioID string) (r []*campaignsmodel.S
 	}
 
 	// decode
-	err = json.Unmarshal(bytes, &r)
-	u.LogError(err)
+	t := make([]*campaignsmodel.AmazonSBCampaignDTO, 0)
+	err = json.Unmarshal(bytes, &t)
+	if u.LogError(err) {
+		return
+	}
+
+	for _, v := range t {
+		r = append(r, v.ToSBCampaignDTO())
+	}
 	return
 }
 
@@ -151,8 +179,15 @@ func (x *CampaignsAPI) GetSBCampaignsByName(name string) (r []*campaignsmodel.SB
 	}
 
 	// decode
-	err = json.Unmarshal(bytes, &r)
-	u.LogError(err)
+	t := make([]*campaignsmodel.AmazonSBCampaignDTO, 0)
+	err = json.Unmarshal(bytes, &t)
+	if u.LogError(err) {
+		return
+	}
+
+	for _, v := range t {
+		r = append(r, v.ToSBCampaignDTO())
+	}
 	return
 }
 
@@ -169,8 +204,15 @@ func (x *CampaignsAPI) CreateSBCampaigns(entries []*campaignsmodel.SBCampaignDTO
 	}
 
 	// decode
-	err = json.Unmarshal(bytes, &r)
-	u.LogError(err)
+	t := make([]*campaignsmodel.AmazonResponseDTO, 0)
+	err = json.Unmarshal(bytes, &t)
+	if u.LogError(err) {
+		return
+	}
+
+	for _, v := range t {
+		r = append(r, v.ToResponseDTO())
+	}
 	return
 }
 
@@ -193,8 +235,13 @@ func (x *CampaignsAPI) GetSPAdGroupsByID(adGroupId string) (r *campaignsmodel.Ad
 	}
 
 	// decode
-	err = json.Unmarshal(bytes, &r)
-	u.LogError(err)
+	t := new(campaignsmodel.AmazonAdGroupDTO)
+	err = json.Unmarshal(bytes, &t)
+	if u.LogError(err) {
+		return
+	}
+
+	r = t.ToAdGroupDTO()
 	return
 }
 
@@ -213,8 +260,15 @@ func (x *CampaignsAPI) GetSPAdGroupsByName(campaignId string, name string) (r []
 	}
 
 	// decode
-	err = json.Unmarshal(bytes, &r)
-	u.LogError(err)
+	t := make([]*campaignsmodel.AmazonAdGroupDTO, 0)
+	err = json.Unmarshal(bytes, &t)
+	if u.LogError(err) {
+		return
+	}
+
+	for _, v := range t {
+		r = append(r, v.ToAdGroupDTO())
+	}
 	return
 }
 
@@ -233,8 +287,13 @@ func (x *CampaignsAPI) GetSPAdGroupsBid(adGroupId string) (r *campaignsmodel.Bid
 	}
 
 	// decode
-	err = json.Unmarshal(bytes, &r)
-	u.LogError(err)
+	t := new(campaignsmodel.AmazonBidRecommendationsDTO)
+	err = json.Unmarshal(bytes, &t)
+	if u.LogError(err) {
+		return
+	}
+
+	r = t.ToBidRecommendationsDTO()
 	return
 }
 
@@ -251,8 +310,15 @@ func (x *CampaignsAPI) CreateSPAdGroups(entries []*campaignsmodel.AdGroupDTO) (r
 	}
 
 	// decode
-	err = json.Unmarshal(bytes, &r)
-	u.LogError(err)
+	t := make([]*campaignsmodel.AmazonResponseDTO, 0)
+	err = json.Unmarshal(bytes, &t)
+	if u.LogError(err) {
+		return
+	}
+
+	for _, v := range t {
+		r = append(r, v.ToResponseDTO())
+	}
 	return
 }
 
@@ -271,8 +337,15 @@ func (x *CampaignsAPI) GetSBAdGroups(campaignId string) (r []*campaignsmodel.AdG
 	}
 
 	// decode
-	err = json.Unmarshal(bytes, &r)
-	u.LogError(err)
+	t := make([]*campaignsmodel.AmazonAdGroupDTO, 0)
+	err = json.Unmarshal(bytes, &t)
+	if u.LogError(err) {
+		return
+	}
+
+	for _, v := range t {
+		r = append(r, v.ToAdGroupDTO())
+	}
 	return
 }
 
@@ -300,8 +373,15 @@ func (x *CampaignsAPI) GetSPProductAds(adGroupId string, state string) (r []*cam
 	}
 
 	// decode
-	err = json.Unmarshal(bytes, &r)
-	u.LogError(err)
+	t := make([]*campaignsmodel.AmazonProductAdDTO, 0)
+	err = json.Unmarshal(bytes, &t)
+	if u.LogError(err) {
+		return
+	}
+
+	for _, v := range t {
+		r = append(r, v.ToProductAdDTO())
+	}
 	return
 }
 
@@ -318,8 +398,15 @@ func (x *CampaignsAPI) CreateSPProductAds(entries []*campaignsmodel.ProductAdDTO
 	}
 
 	// decode
-	err = json.Unmarshal(bytes, &r)
-	u.LogError(err)
+	t := make([]*campaignsmodel.AmazonResponseDTO, 0)
+	err = json.Unmarshal(bytes, &t)
+	if u.LogError(err) {
+		return
+	}
+
+	for _, v := range t {
+		r = append(r, v.ToResponseDTO())
+	}
 	return
 }
 
@@ -336,8 +423,15 @@ func (x *CampaignsAPI) UpdateSPProductAds(entries []*campaignsmodel.ProductAdDTO
 	}
 
 	// decode
-	err = json.Unmarshal(bytes, &r)
-	u.LogError(err)
+	t := make([]*campaignsmodel.AmazonResponseDTO, 0)
+	err = json.Unmarshal(bytes, &t)
+	if u.LogError(err) {
+		return
+	}
+
+	for _, v := range t {
+		r = append(r, v.ToResponseDTO())
+	}
 	return
 }
 
@@ -360,8 +454,15 @@ func (x *CampaignsAPI) GetSPTargets(adGroupId string) (r []*campaignsmodel.Targe
 	}
 
 	// decode
-	err = json.Unmarshal(bytes, &r)
-	u.LogError(err)
+	t := make([]*campaignsmodel.AmazonTargetDTO, 0)
+	err = json.Unmarshal(bytes, &t)
+	if u.LogError(err) {
+		return
+	}
+
+	for _, v := range t {
+		r = append(r, v.ToTargetDTO())
+	}
 	return
 }
 
@@ -381,8 +482,13 @@ func (x *CampaignsAPI) GetSPTargetsBids(in *TargetsBidsQuery) (r *campaignsmodel
 	}
 
 	// decode
-	err = json.Unmarshal(bytes, &r)
-	u.LogError(err)
+	t := new(campaignsmodel.AmazonBidRecommendationsDTO)
+	err = json.Unmarshal(bytes, &t)
+	if u.LogError(err) {
+		return
+	}
+
+	r = t.ToBidRecommendationsDTO()
 	return
 }
 
@@ -399,8 +505,15 @@ func (x *CampaignsAPI) UpdateSPTargets(entries []*campaignsmodel.TargetDTO) (r [
 	}
 
 	// decode
-	err = json.Unmarshal(bytes, &r)
-	u.LogError(err)
+	t := make([]*campaignsmodel.AmazonResponseDTO, 0)
+	err = json.Unmarshal(bytes, &t)
+	if u.LogError(err) {
+		return
+	}
+
+	for _, v := range t {
+		r = append(r, v.ToResponseDTO())
+	}
 	return
 }
 
@@ -409,6 +522,11 @@ func (x *CampaignsAPI) UpdateSPTargets(entries []*campaignsmodel.TargetDTO) (r [
 // #region Keywords
 
 func (x *CampaignsAPI) CreateSPKeywords(entries []*campaignsmodel.KeywordDTO) (r []*campaignsmodel.ResponseDTO, err error) {
+	newEntries := make([]*campaignsmodel.AmazonKeywordDTO, 0, len(entries))
+	for _, v := range entries {
+		newEntries = append(newEntries, v.ToAmazonKeywordDTO())
+	}
+
 	body, _ := json.Marshal(entries)
 	bytes, err := x.Send("POST", "/v2/sp/keywords", body)
 	if err != nil || len(bytes) == 0 {
@@ -416,8 +534,15 @@ func (x *CampaignsAPI) CreateSPKeywords(entries []*campaignsmodel.KeywordDTO) (r
 	}
 
 	// decode
-	err = json.Unmarshal(bytes, &r)
-	u.LogError(err)
+	t := make([]*campaignsmodel.AmazonResponseDTO, 0)
+	err = json.Unmarshal(bytes, &t)
+	if u.LogError(err) {
+		return
+	}
+
+	for _, v := range t {
+		r = append(r, v.ToResponseDTO())
+	}
 	return
 }
 
@@ -434,8 +559,15 @@ func (x *CampaignsAPI) CreateSBKeywords(entries []*campaignsmodel.KeywordDTO) (r
 	}
 
 	// decode
-	err = json.Unmarshal(bytes, &r)
-	u.LogError(err)
+	t := make([]*campaignsmodel.AmazonResponseDTO, 0)
+	err = json.Unmarshal(bytes, &t)
+	if u.LogError(err) {
+		return
+	}
+
+	for _, v := range t {
+		r = append(r, v.ToResponseDTO())
+	}
 	return
 }
 
@@ -452,8 +584,15 @@ func (x *CampaignsAPI) UpdateSBKeywords(entries []*campaignsmodel.KeywordDTO) (r
 	}
 
 	// decode
-	err = json.Unmarshal(bytes, &r)
-	u.LogError(err)
+	t := make([]*campaignsmodel.AmazonResponseDTO, 0)
+	err = json.Unmarshal(bytes, &t)
+	if u.LogError(err) {
+		return
+	}
+
+	for _, v := range t {
+		r = append(r, v.ToResponseDTO())
+	}
 	return
 }
 
@@ -544,8 +683,13 @@ func (x *CampaignsAPI) CreateStoreAssets(in *campaignsmodel.CreateStoreAssetComm
 	}
 
 	// decode
-	err = json.Unmarshal(bytes, &r)
-	u.LogError(err)
+	t := new(campaignsmodel.AmazonResponseDTO)
+	err = json.Unmarshal(bytes, &t)
+	if u.LogError(err) {
+		return
+	}
+
+	r = t.ToResponseDTO()
 	return
 }
 
