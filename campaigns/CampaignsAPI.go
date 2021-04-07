@@ -191,7 +191,7 @@ func (x *CampaignsAPI) GetSBCampaignsByName(name string) (r []*campaignsmodel.SB
 	return
 }
 
-func (x *CampaignsAPI) CreateSBCampaigns(entries []*campaignsmodel.SBCampaignDTO) (r *campaignsmodel.ResponseDTO, err error) {
+func (x *CampaignsAPI) CreateSBCampaigns(entries []*campaignsmodel.SBCampaignDTO) (r []*campaignsmodel.ResponseDTO, err error) {
 	newEntries := make([]*campaignsmodel.AmazonSBCampaignDTO, 0, len(entries))
 	for _, v := range entries {
 		newEntries = append(newEntries, v.ToAmazonSBCampaignDTO())
@@ -204,13 +204,15 @@ func (x *CampaignsAPI) CreateSBCampaigns(entries []*campaignsmodel.SBCampaignDTO
 	}
 
 	// decode
-	t := new(campaignsmodel.AmazonResponseDTO)
+	t := make([]*campaignsmodel.AmazonResponseDTO, 0)
 	err = json.Unmarshal(bytes, &t)
 	if u.LogError(err) {
 		return
 	}
 
-	r = t.ToResponseDTO()
+	for _, v := range t {
+		r = append(r, v.ToResponseDTO())
+	}
 	return
 }
 
