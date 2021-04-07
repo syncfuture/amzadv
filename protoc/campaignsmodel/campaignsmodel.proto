@@ -9,9 +9,9 @@ option go_package = "github.com/syncfuture/amzadv/protoc/campaignsmodel";
 
 message SPCampaignDTO  {
     // `json:"campaignId,omitempty"`
-    int64 ID                  = 1; 
+    string ID                 = 1; 
     // `json:"portfolioId,omitempty"`
-    int64 PortfolioID         = 2; 
+    string PortfolioID        = 2; 
     // `json:"name,omitempty"`
     string Name               = 3; 
     // `json:"campaignType,omitempty"`
@@ -49,9 +49,9 @@ message AdjustmentDTO  {
 
 message SBCampaignDTO  {
     // `json:"campaignId,omitempty"`
-    int64 ID                   = 1; 
+    string ID                  = 1; 
     // `json:"portfolioId,omitempty"`
-    int64 PortfolioID          = 2; 
+    string PortfolioID         = 2; 
     // `json:"name,omitempty"`
     string Name                = 3; 
     // `json:"budget,omitempty"`
@@ -109,7 +109,7 @@ message LandingPageDTO  {
 
 message BidRecommendationsDTO  {
     //`json:"adGroupId,omitempty"`
-    int64 AdGroupID                             = 1;
+    string AdGroupID                             = 1;
     //`json:"suggestedBid,omitempty"`
     SuggestedBidDTO SuggestedBid                = 2; 
     //`json:"recommendations,omitempty"`
@@ -143,9 +143,9 @@ message SuggestedBidDTO  {
 
 message AdGroupDTO  {
     //`json:"adGroupId,omitempty"`
-    int64 ID         = 1; 
+    string ID         = 1; 
     //`json:"campaignId,omitempty"`
-    int64 CampaignID = 2;
+    string CampaignID = 2;
     //`json:"name,omitempty"`
     string Name      = 3; 
     //`json:"state,omitempty"`
@@ -157,11 +157,11 @@ message AdGroupDTO  {
 }
 message ProductAdDTO  {
     //`json:"adId,omitempty"`
-    int64 AdID       = 1; 
+    string AdID       = 1; 
     //`json:"adGroupId,omitempty"`
-    int64 AdGroupID  = 2;
+    string AdGroupID  = 2;
     //`json:"campaignId,omitempty"`
-    int64 CampaignID = 3; 
+    string CampaignID = 3; 
     //`json:"asin,omitempty"`
     string ASIN      = 4; 
     //`json:"sku,omitempty"`
@@ -171,11 +171,11 @@ message ProductAdDTO  {
 }
 message KeywordDTO  {
     //`json:"campaignId,omitempty"`
-    int64 CampaignID   = 1; 
+    string CampaignID   = 1; 
     //`json:"adGroupId,omitempty"`
-    int64 AdGroupID    = 2; 
+    string AdGroupID    = 2; 
     //`json:"keywordId,omitempty"`
-    int64 KeywordID    = 3; 
+    string KeywordID    = 3; 
     //`json:"state,omitempty"`
     string State       = 4; 
     //`json:"keywordText,omitempty"`
@@ -191,11 +191,11 @@ message KeywordDTO  {
 }
 message TargetDTO  {
     //`json:"campaignId,omitempty"`
-    int64 CampaignID                  = 1;
+    string CampaignID                  = 1;
     //`json:"adGroupId,omitempty"`
-    int64 AdGroupID                   = 2; 
+    string AdGroupID                   = 2; 
     //`json:"targetId,omitempty"`
-    int64 TargetID                    = 3;
+    string TargetID                    = 3;
     //`json:"expressionType,omitempty"`
     string ExpressionType             = 4; 
     //`json:"expression,omitempty"`
@@ -207,9 +207,9 @@ message TargetDTO  {
 }
 message ResponseDTO{
     //`json:"campaignId,omitempty"`
-    int64 CampaignID   = 1; 
+    string CampaignID   = 1; 
     //`json:"adGroupId,omitempty"`
-    int64 AdGroupID    = 2; 
+    string AdGroupID    = 2; 
     //`json:"assetID,omitempty"`
     string AssetID     = 3; 
     //`json:"code,omitempty"`

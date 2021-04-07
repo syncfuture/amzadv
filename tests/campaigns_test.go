@@ -1,9 +1,11 @@
 package tests
 
 import (
+	"encoding/json"
 	"testing"
 
 	"github.com/syncfuture/amzadv/protoc/campaignsmodel"
+	"github.com/syncfuture/go/u"
 
 	"github.com/syncfuture/amzadv/campaigns"
 
@@ -31,7 +33,7 @@ func TestCreateSPCampaigns(t *testing.T) {
 	in := []*campaignsmodel.SPCampaignDTO{
 		&campaignsmodel.SPCampaignDTO{
 			// ID:                   42441275323797,
-			PortfolioID:          254949460323282,
+			// PortfolioID:          254949460323282,
 			Name:                 "test-campaign - Auto",
 			CampaignType:         "sponsoredProducts",
 			TargetingType:        "auto",
@@ -84,4 +86,18 @@ func TestGetBrands(t *testing.T) {
 	assert.NoError(t, err)
 	assert.NotNil(t, r)
 	t.Log(r)
+}
+
+func TestSerialize(t *testing.T) {
+	a := new(campaignsmodel.SPCampaignDTO)
+	a.ID = "144371381093537413"
+	a.PortfolioID = "144371381093555555"
+
+	data, err := json.Marshal(a)
+	assert.NoError(t, err)
+	t.Log(u.BytesToStr(data))
+
+	var b *campaignsmodel.SPCampaignDTO
+	err = json.Unmarshal(data, &b)
+	assert.NoError(t, err)
 }
