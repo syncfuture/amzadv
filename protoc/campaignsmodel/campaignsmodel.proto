@@ -274,6 +274,7 @@ message CreateStoreAssetCommand  {
     StoreAssetDTO AssetInfo = 3; 
     //`json:"asset,omitempty"`
     bytes Asset = 4; 
+    bytes FileBuffer = 5; 
 }
 message File {
 	string Filename = 1;
