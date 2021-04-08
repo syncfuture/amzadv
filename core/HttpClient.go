@@ -5,7 +5,6 @@ import (
 	"errors"
 	"io/ioutil"
 	"net/http"
-	"strings"
 
 	"github.com/syncfuture/go/serr"
 	"github.com/syncfuture/go/u"
@@ -45,13 +44,11 @@ func (x *APIClient) NewHttpRequest(action string, url string, body []byte) (r *h
 	}
 
 	// headers
-	contentType := "application/json"
-	r.Header.Set("Content-Type", contentType)
 	r.Header.Set("Amazon-Advertising-API-ClientId", x.OAuth2Config.ClientID)
 	r.Header.Set("Amazon-Advertising-API-Scope", x.ProfileID)
-	if strings.ToUpper(action) == "GET" {
-		r.Header.Set("Accept-Encoding", "gzip")
-	}
+	// if strings.ToUpper(action) == "GET" {
+	// 	r.Header.Set("Accept-Encoding", "gzip")
+	// }
 
 	return
 }

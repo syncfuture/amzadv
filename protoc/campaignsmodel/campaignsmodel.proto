@@ -273,7 +273,13 @@ message CreateStoreAssetCommand  {
     //`json:"assetInfo,omitempty"`
     StoreAssetDTO AssetInfo = 3; 
     //`json:"asset,omitempty"`
-    string Asset = 4; 
+    bytes Asset = 4; 
+}
+message File {
+	string Filename = 1;
+	int64 Size = 2;
+    bytes content = 3;
+	string tmpfile = 4;
 }
 
 // ========================================================================================

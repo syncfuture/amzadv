@@ -3,7 +3,9 @@ package campaigns
 import (
 	"encoding/json"
 	"errors"
+	"mime/multipart"
 	"net/url"
+	"strings"
 
 	"github.com/syncfuture/amzadv/core"
 	"github.com/syncfuture/amzadv/protoc/campaignsmodel"
@@ -671,11 +673,31 @@ func (x *CampaignsAPI) GetLandingPageASINs(pageUrl string) (r *campaignsmodel.La
 }
 
 func (x *CampaignsAPI) CreateStoreAssets(in *campaignsmodel.CreateStoreAssetCommand) (r *campaignsmodel.ResponseDTO, err error) {
-	body, _ := json.Marshal(in)
+	r = new(campaignsmodel.ResponseDTO)
+	contentType := "image/png,image/jpeg,image/gif"
 
-	req := x.NewHttpRequest("PUT", "/stores/assets", body)
+	if !strings.Contains(contentType, in.ImageType) {
+		err = errors.New("Invalid file format")
+		return
+	}
+
+	// new request
+	req := x.NewHttpRequest("POST", "/stores/assets", nil)
+	req.Header.Set("Content-Type", contentType)
 	req.Header.Set("Content-Disposition", in.ImageName)
-	req.Header.Set("Content-Type", in.ImageType)
+
+	// form-data
+	fileHeader := new(multipart.FileHeader)
+	assetInfo, _ := json.Marshal(in.AssetInfo)
+	err = json.Unmarshal(in.Asset, &fileHeader)
+	if u.LogError(err) {
+		return
+	}
+
+	req.MultipartForm.Value = url.Values{}
+	req.MultipartForm.Value["assetInfo"][0] = u.BytesToStr(assetInfo)
+	req.MultipartForm.File["asset"][0] = fileHeader
+	req.ParseMultipartForm(1 << 20) // 1MB
 
 	bytes, err := x.HttpSend(req)
 	if err != nil || len(bytes) == 0 {

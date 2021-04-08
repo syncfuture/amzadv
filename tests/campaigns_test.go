@@ -88,6 +88,23 @@ func TestGetBrands(t *testing.T) {
 	t.Log(r)
 }
 
+func TestUploadImages(t *testing.T) {
+	in := &campaignsmodel.CreateStoreAssetCommand{
+		ImageName: "12345",
+		ImageType: "image/jpeg",
+		AssetInfo: &campaignsmodel.StoreAssetDTO{
+			BrandEntityId: "1234",
+			MediaType:     "brandLogo",
+		},
+		Asset: make([]byte, 0),
+	}
+
+	r, err := _campaignsClient.CreateStoreAssets(in)
+	assert.NoError(t, err)
+	assert.NotNil(t, r)
+	t.Log(r)
+}
+
 func TestSerialize(t *testing.T) {
 	a := new(campaignsmodel.SPCampaignDTO)
 	a.ID = "144371381093537413"

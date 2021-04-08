@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	AdvURL       = "https://advertising-api-test.amazon.com"
+	AdvURL       = "https://advertising-api.amazon.com"
 	TokenURL     = "https://api.amazon.com/auth/o2/token"
 	RedirectURI  = "https://da.armos.ai/connect/amazon"
 	ClientID     = "amzn1.application-oa2-client.cb6856e698c74eb480ce7804f428b3dc"
@@ -52,10 +52,10 @@ func init() {
 
 	_reportsClient = reports.NewReportsAPI(c, tokenStore)
 	_reportsClient.AdvURL = AdvURL
-	_reportsClient.ProfileID = _profiles["lf"]
+	_reportsClient.ProfileID = _profiles["hh"]
 
 	_campaignsClient = campaigns.NewCampaignsAPI(c, tokenStore)
 	_campaignsClient.AdvURL = AdvURL
-	// _campaignsClient.ProfileID = _profiles["lf"]
-	_campaignsClient.ProfileID = "4204121046005442"
+	_campaignsClient.ProfileID = _profiles["hh"]
+	// _campaignsClient.ProfileID = "4204121046005442"
 }
