@@ -686,9 +686,9 @@ func (x *CampaignsAPI) CreateStoreAssets(in *campaignsmodel.CreateStoreAssetComm
 	}
 
 	// form-data
-	fileHeader := new(multipart.FileHeader)
+	// fileHeader := new(multipart.FileHeader)
 	assetInfo, _ := json.Marshal(in.AssetInfo)
-	err = json.Unmarshal(in.Asset, &fileHeader)
+	// err = json.Unmarshal(in.Asset, &fileHeader)
 	// if u.LogError(err) {
 	// 	return
 	// }
@@ -705,13 +705,13 @@ func (x *CampaignsAPI) CreateStoreAssets(in *campaignsmodel.CreateStoreAssetComm
 	// req.PostForm.Set("asset", u.BytesToStr(in.Asset))
 	// req.ParseForm()
 
-	// read buffer
-	file, err := fileHeader.Open()
-	defer file.Close()
+	// // read buffer
+	// file, err := fileHeader.Open()
+	// defer file.Close()
 
 	values := make(map[string]io.Reader, 0)
 	values["assetInfo"] = strings.NewReader(u.BytesToStr(assetInfo))
-	values["asset"] = file
+	values["asset"] = strings.NewReader(u.BytesToStr(in.FileBuffer))
 
 	buf := new(bytes.Buffer)
 	w := multipart.NewWriter(buf)
