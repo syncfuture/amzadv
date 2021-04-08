@@ -694,8 +694,12 @@ func (x *CampaignsAPI) CreateStoreAssets(in *campaignsmodel.CreateStoreAssetComm
 		return
 	}
 
-	req.MultipartForm.Value["assetInfo"][0] = u.BytesToStr(assetInfo)
-	req.MultipartForm.File["asset"][0] = fileHeader
+	req.MultipartForm = &multipart.Form{
+		Value: url.Values{},
+		File:  make(map[string][]*multipart.FileHeader),
+	}
+	req.MultipartForm.Value["assetInfo"] = []string{u.BytesToStr(assetInfo)}
+	req.MultipartForm.File["asset"] = []*multipart.FileHeader{fileHeader}
 	req.ParseMultipartForm(1 << 20) // 1MB
 
 	bytes, err := x.HttpSend(req)
