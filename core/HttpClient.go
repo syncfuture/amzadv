@@ -34,11 +34,12 @@ func (x *APIClient) NewHttpClient() (r *http.Client, err error) {
 	return
 }
 
-func (x *APIClient) NewHttpRequest(action string, url string, body []byte) (r *http.Request) {
+func (x *APIClient) NewHttpRequest(action string, uri string, body *bytes.Buffer) (r *http.Request) {
 	r = new(http.Request)
 
 	// init request
-	r, err := http.NewRequest(action, url, bytes.NewBuffer(body))
+	url := x.AdvURL + uri
+	r, err := http.NewRequest(action, url, body)
 	if u.LogError(serr.WithStack(err)) {
 		return
 	}
