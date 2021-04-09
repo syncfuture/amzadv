@@ -4,17 +4,14 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
-	"io"
-	"mime/multipart"
 	"net/url"
-	"os"
 	"strings"
 
 	"github.com/syncfuture/amzadv/core"
 	"github.com/syncfuture/amzadv/protoc/campaignsmodel"
 	"golang.org/x/oauth2"
 
-	"github.com/syncfuture/go/slog"
+	"github.com/syncfuture/go/spool"
 	"github.com/syncfuture/go/u"
 )
 
@@ -645,7 +642,7 @@ func (x *CampaignsAPI) GetStoreAssets(brandEntityId string) (r []*campaignsmodel
 	}
 
 	// Send request
-	bytes, err := x.Send("GET", "/stores/assets?&brandEntityId="+brandEntityId, nil)
+	bytes, err := x.Send("GET", "/stores/assets?mediaType=brandLogo&brandEntityId="+brandEntityId, nil)
 	if err != nil || len(bytes) == 0 {
 		return
 	}
@@ -678,80 +675,43 @@ func (x *CampaignsAPI) GetLandingPageASINs(pageUrl string) (r *campaignsmodel.La
 
 func (x *CampaignsAPI) CreateStoreAssets(in *campaignsmodel.CreateStoreAssetCommand) (r *campaignsmodel.ResponseDTO, err error) {
 	r = new(campaignsmodel.ResponseDTO)
-	contentType := "image/png,image/jpeg,image/gif"
 
+	contentType := "image/png,image/jpeg,image/gif"
 	if !strings.Contains(contentType, in.ImageType) {
 		err = errors.New("Invalid file format")
 		return
 	}
 
-	// form-data
-	// fileHeader := new(multipart.FileHeader)
-	assetInfo, _ := json.Marshal(in.AssetInfo)
-	// err = json.Unmarshal(in.Asset, &fileHeader)
-	// if u.LogError(err) {
-	// 	return
-	// }
+	// write body
+	bufPool := spool.NewSyncBufferPool(1024)
+	buf := &bytes.Buffer{}
+	defer func() { bufPool.PutBuffer(buf) }()
 
-	// req.MultipartForm = &multipart.Form{
-	// 	Value: url.Values{},
-	// 	File:  make(map[string][]*multipart.FileHeader),
-	// }
-	// req.MultipartForm.Value["assetInfo"] = []string{u.BytesToStr(assetInfo)}
-	// req.MultipartForm.File["asset"] = []*multipart.FileHeader{fileHeader}
-	// req.ParseMultipartForm(1 << 20) // 1MB
-	// req.PostForm = url.Values{}
-	// req.PostForm.Set("assetInfo", u.BytesToStr(assetInfo))
-	// req.PostForm.Set("asset", u.BytesToStr(in.Asset))
-	// req.ParseForm()
-
-	// // read buffer
-	// file, err := fileHeader.Open()
-	// defer file.Close()
-
-	values := make(map[string]io.Reader, 0)
-	values["assetInfo"] = strings.NewReader(u.BytesToStr(assetInfo))
-	values["asset"] = strings.NewReader(u.BytesToStr(in.FileBuffer))
-
-	buf := new(bytes.Buffer)
-	w := multipart.NewWriter(buf)
-	// w.WriteField("assetInfo", u.BytesToStr(assetInfo))
-	// w.WriteField("asset", u.BytesToStr(in.Asset))
-
-	for key, v := range values {
-		var fw io.Writer
-		if x, ok := v.(io.Closer); ok {
-			defer x.Close()
-		}
-		// Add an image file
-		if x, ok := v.(*os.File); ok {
-			if fw, err = w.CreateFormFile(key, x.Name()); err != nil {
-				return
-			}
-		} else {
-			// Add other fields
-			if fw, err = w.CreateFormField(key); err != nil {
-				return
-			}
-		}
-		if _, err = io.Copy(fw, v); err != nil {
-			return
-		}
-
+	assetInfo, err := json.Marshal(in.AssetInfo)
+	if u.LogError(err) {
+		return
 	}
 
+	buf.WriteString("\n")
+	buf.WriteString("----------------------------831336305333105491952620\n")
+	buf.WriteString("Content-Disposition: form-data; name=\"assetInfo\"\n")
+	buf.WriteString("\n")
+	buf.WriteString(u.BytesToStr(assetInfo) + "\n")
+	buf.WriteString("----------------------------831336305333105491952620\n")
+	buf.WriteString("Content-Disposition: form-data; name=\"asset\"; filename=\"" + in.ImageName + "\"\n")
+	buf.WriteString("Content-Type: " + in.ImageType + "\n")
+	buf.WriteString("\n")
+	buf.Write(in.FileBuffer)
+
 	// new request
-	contentType = w.FormDataContentType()
-	req := x.NewHttpRequest("POST", "/stores/assets", nil)
-	req.Header.Set("Content-Type", contentType)
+	req := x.NewHttpRequest("POST", "/stores/assets", buf)
 	req.Header.Set("Content-Disposition", in.ImageName)
+	req.Header.Set("Content-Type", "multipart/form-data; boundary=--------------------------831336305333105491952620")
 
 	bytes, err := x.HttpSend(req)
 	if err != nil || len(bytes) == 0 {
 		return
 	}
-
-	slog.Error(u.BytesToStr(bytes))
 
 	// decode
 	t := new(campaignsmodel.AmazonResponseDTO)
