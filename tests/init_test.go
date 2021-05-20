@@ -1,6 +1,8 @@
 package tests
 
 import (
+	"context"
+
 	"github.com/syncfuture/amzadv/campaigns"
 	"github.com/syncfuture/amzadv/core"
 	"github.com/syncfuture/amzadv/reports"
@@ -48,7 +50,7 @@ func init() {
 	var redisConfig *sredis.RedisConfig
 	configProvider := config.NewJsonConfigProvider()
 	configProvider.GetStruct("Redis", &redisConfig)
-	tokenStore := core.NewTokenStore("hh", redisConfig)
+	tokenStore := core.NewTokenStore(context.Background(), "hh", redisConfig)
 
 	_reportsClient = reports.NewReportsAPI(c, tokenStore)
 	_reportsClient.AdvURL = AdvURL

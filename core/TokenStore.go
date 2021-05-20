@@ -1,10 +1,11 @@
 package core
 
 import (
+	"context"
 	"encoding/json"
 	"time"
 
-	"github.com/go-redis/redis/v7"
+	"github.com/go-redis/redis/v8"
 	"github.com/syncfuture/go/sredis"
 
 	"github.com/syncfuture/go/u"
@@ -21,12 +22,14 @@ type ITokenStore interface {
 }
 
 type TokenStore struct {
+	Ctx        context.Context
 	Client     redis.Cmdable
 	MerchantID string
 }
 
-func NewTokenStore(merchantId string, config *sredis.RedisConfig) ITokenStore {
+func NewTokenStore(ctx context.Context, merchantId string, config *sredis.RedisConfig) ITokenStore {
 	r := new(TokenStore)
+	r.Ctx = ctx
 	r.MerchantID = merchantId
 	r.Client = sredis.NewClient(config)
 	return r
@@ -35,7 +38,7 @@ func NewTokenStore(merchantId string, config *sredis.RedisConfig) ITokenStore {
 func (x *TokenStore) GetToken(args ...interface{}) (r *oauth2.Token, err error) {
 	r = new(oauth2.Token)
 
-	jsonStr, err := x.Client.HGet(_key, x.MerchantID).Result()
+	jsonStr, err := x.Client.HGet(x.Ctx, _key, x.MerchantID).Result()
 	if u.LogError(err) {
 		return
 	}
@@ -67,6 +70,6 @@ func (x *TokenStore) SaveToken(token *oauth2.Token, args ...interface{}) (err er
 		return err
 	}
 
-	x.Client.HSet(_key, x.MerchantID, string(jsonBytes))
+	x.Client.HSet(x.Ctx, _key, x.MerchantID, string(jsonBytes))
 	return nil
 }
