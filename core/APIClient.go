@@ -74,7 +74,7 @@ func (x *APIClient) GetProfiles() (r []*ProfileDTO, err error) {
 	if resp.StatusCode != 200 || u.LogError(err) {
 		return
 	}
-	defer resp.Body.Close()
+	defer func() { resp.Body.Close() }()
 
 	bytes, err := ioutil.ReadAll(resp.Body)
 	if u.LogError(err) {

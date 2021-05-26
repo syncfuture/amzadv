@@ -11,7 +11,7 @@ import (
 
 func TestSponseredProducts(t *testing.T) {
 	q := new(reports.SponseredReportsQuery)
-	q.ReportDate = "20201026"
+	q.ReportDate = "20210523"
 	q.Metrics = "sku,cost"
 	q.RequestURL = "/v2/sp/productAds/report"
 
@@ -38,7 +38,7 @@ func TestSponseredProducts(t *testing.T) {
 
 func TestSponseredBrand(t *testing.T) {
 	q := new(reports.SponseredReportsQuery)
-	q.ReportDate = "20201001"
+	q.ReportDate = "20210502"
 	q.Metrics = "cost"
 	q.RequestURL = "/v2/hsa/campaigns/report"
 

@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"io/ioutil"
 	"net/http"
-	"strings"
 
 	"github.com/syncfuture/go/u"
 )
@@ -46,11 +45,26 @@ func (x *APIClient) Request(action string, client *http.Client, url string, body
 	req.Header.Set("Content-Type", contentType)
 	req.Header.Set("Amazon-Advertising-API-ClientId", x.OAuth2Config.ClientID)
 	req.Header.Set("Amazon-Advertising-API-Scope", x.ProfileID)
-	if strings.ToUpper(action) == "GET" {
-		req.Header.Set("Accept-Encoding", "gzip")
-	}
+	// if strings.ToUpper(action) == "GET" {
+	// 	req.Header.Set("Accept-Encoding", "gzip")
+	// }
 
 	// send request
 	r, err = client.Do(req)
+	return
+}
+
+func (x *APIClient) CRequest(action string, client *http.Client, url string, body []byte) (r *http.Request, err error) {
+	// init request
+	r, err = http.NewRequest(action, url, bytes.NewBuffer(body))
+	if err != nil {
+		return
+	}
+
+	// headers
+	contentType := "application/json"
+	r.Header.Set("Content-Type", contentType)
+	r.Header.Set("Amazon-Advertising-API-ClientId", x.OAuth2Config.ClientID)
+	r.Header.Set("Amazon-Advertising-API-Scope", x.ProfileID)
 	return
 }

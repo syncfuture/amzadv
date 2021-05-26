@@ -86,7 +86,9 @@ func (x *ReportsAPI) GetReport(reportID string) (r []byte, err error) {
 	}
 
 	// send Request
-	resp, err := x.Request("GET", client, url, nil)
+	req, err := x.CRequest("GET", client, url, nil)
+	req.Header.Set("Accept-Encoding", "gzip")
+	resp, err := client.Do(req)
 	if resp.StatusCode != 307 || u.LogError(err) {
 		return
 	}
